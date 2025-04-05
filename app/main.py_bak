@@ -1,0 +1,195 @@
+import os
+import uuid
+import json
+import time
+from datetime import datetime, timedelta
+from typing import List, Dict, Optional
+
+import numpy as np
+import pandas as pd
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import joblib
+from google.cloud import firestore
+from google.cloud import secretmanager
+import google.auth
+
+import logging
+# Import your config module
+from app.config import is_cloud_environment, get_api_key, get_db_client
+from app.database import create_db_and_tables
+
+# Check if running in cloud environment
+import os
+is_cloud_environment = os.environ.get('K_SERVICE') is not None or os.environ.get('GOOGLE_CLOUD_PROJECT') is not None
+
+# Import Google Cloud libraries conditionally
+if is_cloud_environment:
+    try:
+        from google.cloud import secretmanager
+        from google.cloud import firestore
+        from google.cloud import storage
+        cloud_services_available = True
+    except ImportError:
+        cloud_services_available = False
+else:
+    cloud_services_available = False
+
+# Get API key either from Secret Manager or environment
+def get_api_key():
+    if cloud_services_available:
+        try:
+            # Get from Secret Manager
+            client = secretmanager.SecretManagerServiceClient()
+            name = f"projects/{os.environ.get('GOOGLE_CLOUD_PROJECT')}/secrets/api-key/versions/latest"
+            response = client.access_secret_version(request={"name": name})
+            return response.payload.data.decode("UTF-8")
+        except:
+            # Fall back to environment variable
+            return os.environ.get('API_KEY', 'your-default-key-for-development')
+    else:
+        # Local development - use environment variable
+        return os.environ.get('API_KEY', 'your-default-key-for-development')
+
+# Initialize FastAPI
+app = FastAPI(title="Fibonacci Trading AI - GCP Version",
+              description="Intelligent trading API using Google Cloud services")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Load model and scaler
+model = joblib.load('/app/app/models/fibonacci_model.pkl')
+scaler = joblib.load("/app/app/models/state_scaler.pkl")
+
+# Initialize Firestore
+db = firestore.Client()
+
+# Initialize Secret Manager
+secret_client = secretmanager.SecretManagerServiceClient()
+
+# Trading settings
+TRADING_SETTINGS = {
+    "points_to_usd_factor": 1.25/124.9,
+    "spread": 3000,
+    "min_lot_size": 0.01,
+    "max_lot_size": 0.1
+}
+
+# Model classes
+class MarketData(BaseModel):
+    time: str
+    open: float
+    high: float
+    low: float
+    close: float
+    volume: Optional[float] = None
+    
+class AccountInfo(BaseModel):
+    balance: float
+    equity: float
+    margin: Optional[float] = None
+    free_margin: Optional[float] = None
+    
+class TradingRequest(BaseModel):
+    api_key: str
+    candles: List[MarketData]
+    account: AccountInfo
+    active_positions: List[Dict] = []
+    
+class TradingSignal(BaseModel):
+    action: str  # "BUY", "SELL", "CLOSE", "HOLD"
+    lot_size: float
+    entry_price: Optional[float] = None
+    stop_loss: Optional[float] = None
+    take_profit: Optional[float] = None
+    confidence: float
+    redraw_fibo: bool = False
+    message: str
+
+# Helper functions
+def get_api_key(api_key: str = Header(...)):
+    """Validate API key using Google Secret Manager"""
+    try:
+        secret_name = f"projects/{os.environ['GCP_PROJECT_ID']}/secrets/api-key/versions/latest"
+        response = secret_client.access_secret_version(request={"name": secret_name})
+        valid_key = response.payload.data.decode("UTF-8")
+        
+        if api_key != valid_key:
+            raise HTTPException(status_code=401, detail="Invalid API key")
+    except Exception as e:
+        # Fallback for development
+        if api_key != os.environ.get('API_KEY', 'dev-key'):
+            raise HTTPException(status_code=401, detail=f"Invalid API key: {str(e)}")
+    return api_key
+
+def prepare_data(candles: List[MarketData]) -> pd.DataFrame:
+    """Convert candle data to DataFrame"""
+    df = pd.DataFrame([c.dict() for c in candles])
+    df['time'] = pd.to_datetime(df['time'])
+    df['candle_body'] = abs(df['close'] - df['open'])
+    df['upper_shadow'] = df['high'] - np.maximum(df['open'], df['close'])
+    df['lower_shadow'] = np.minimum(df['open'], df['close']) - df['low']
+    df['candle_range'] = df['high'] - df['low']
+    
+    for n in range(1, 6):
+        df[f'breaks_candle_{n}_high'] = (df['close'] > df['high'].shift(n)).astype(int)
+        df[f'breaks_candle_{n}_low'] = (df['close'] < df['low'].shift(n)).astype(int)
+    
+    return df
+
+def log_trade_decision(decision: TradingSignal, request_data: TradingRequest):
+    """Log trading decision to Firestore"""
+    try:
+        trade_ref = db.collection('trading_decisions').document()
+        trade_data = {
+            **decision.dict(),
+            'account_info': request_data.account.dict(),
+            'timestamp': datetime.utcnow().isoformat(),
+            'candle_data': request_data.candles[-1].dict()
+        }
+        trade_ref.set(trade_data)
+    except Exception as e:
+        print(f"Error logging trade: {e}")
+
+# API Endpoints
+@app.post("/analyze", response_model=TradingSignal, dependencies=[Depends(get_api_key)])
+async def analyze_market(request: TradingRequest, background_tasks: BackgroundTasks):
+    """Analyze market data and return trading decision"""
+    try:
+        # Prepare data and get prediction
+        df = prepare_data(request.candles)
+        features = create_model_input(df, request.account)
+        features_normalized = scaler.transform(features.reshape(1, -1))
+        action = model.predict(features_normalized)[0]
+        
+        # Generate trading signal (implementation omitted for brevity)
+        signal = generate_trading_signal(action, df, request)
+        
+        # Log the decision
+        background_tasks.add_task(log_trade_decision, signal, request)
+        return signal
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error analyzing market: {str(e)}")
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    try:
+        # Verify Firestore connection
+        db.collection('health').document('check').set({'timestamp': datetime.utcnow().isoformat()})
+        return {"status": "healthy", "services": ["firestore"]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Service unavailable: {str(e)}")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
