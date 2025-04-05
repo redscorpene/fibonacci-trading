@@ -1,0 +1,5 @@
+- run: |-
+    gcloud run deploy fibonacci-trading  # ← Use this exact name
+      --source . 
+      --region us-central1
+      --platform managed
