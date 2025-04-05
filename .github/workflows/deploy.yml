@@ -15,10 +15,21 @@ jobs:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
       
       - uses: google-github-actions/setup-gcloud@v1
-      
-      - run: |-
+        with:
+          project_id: fibonacci-trading-ai
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest .
+          docker push us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest
+
+      - name: Deploy to Cloud Run
+        run: |
           gcloud run deploy fibonacci-trading \
-            --source . \
+            --image us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated

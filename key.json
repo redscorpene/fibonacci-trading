@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fibonacci-trading-ai",
+  "private_key_id": "1ece4af40c4d45c4fad2fb0d0e595649bdc734e1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdWRvsJq8S4XbF\ndTP4r3RcLuBzyNag7eFaoUFBT2EOFmHpXfFYCAswVhSTp+GRFagoY6c9Bl2gEUj1\nxw5Ad4sqrDBwdBHK3bKXaGpYJKavOFILz3oBH6PAHDewzotqsa0vsheXIynzUaB3\noWe/KMo3DQjMMLHkZFg0yDSIwJ+JskLWo7IplO3MdLGWYnZTeXLMkrd7oGdy0PeV\nNlJ7XrfjE4ama7qDptJMc5QtxNRiDOcz/paTvRmgQNeuQrTxF5uSN2HLFIB5rlgj\nQVwgs2vMa5Zhdj7ZwZBG+LAzEehfZ47WOkk1rpDp18kozYZ6PWJPlpUj+dCQ4P2N\nwQjL6YStAgMBAAECggEAJJT8z6rPvdNC9pXw6xK5uhvg7bJmKfycTeKbRgijPy/3\nfBbt/0JBfa+psYmQwRc4pQlELsUt28LhBFlO6DCS360wRtjJcTGZbaemP89nnGm6\n84l9a0j0nHvC+92NXtUnt2TPpMEVZf9WkDGrqe8dEm76mmSA22Fz+3OHeTrVbKDy\ngzgqYGrg5lm92yuCkOBcK/2kmNBel/XyLmnACQ7zhch0ad/4lTJXFR/FO+XNJryp\ntH3TWETBlpNTzuPcxqgxo1JeCnYdUDwRWB5XoT+o4ynUC39xbms8NdWzMFaJEiBu\nj5bjzD+LdGau4+NR1qencmZxbAAP1OnwptEtmbgTyQKBgQDTc6GLkFDGNzm/t6CP\nO4u6IKPODJwIP+VAouVgO28twJWd8yxiwKupMbD9y+LxMJI8E76ATjB27m5syBK8\nTWJ1sAo37V/ZUt1GEt9pWaB+9I8KmyHPf+4NOSb/ydLUY/DOSecjF2sh2WmEKzQO\nyv/H7OKZ7Zq4bU0jJskI8WzbOQKBgQC+f3iojojBAp4+B09gKaSO+h8/jOYqE1IZ\nuY7H41WlIXrcRAguGGjXFI3vGHanx0R8EiHjmu/fJ0QG5sft8exYJANQN+KRGAQ+\nCv6eNcUT0TVtMdr2IFU76Cw06lY6UyJL3IpEn4ljOnuHhOPQgYlZ0Qk6A1mOjD8I\nsLAoXRLRFQKBgE/fugIyPZDig5n8D1aLs7hXZAkNklM7b6n+3o5/ZPvvZ5UGqpmT\nFkUPVEBKqCtboaG4A5oL7xq97lCBMzKWOL8kBHgj3rUFLDiwIFx3Ur0iPHZRK3Bq\nbs3n7OdqoY1BQ1FpcTo8OmfK7KTUfRGpdP1caiyjKHLKNv00RXRvXiNhAoGAG3W2\nh92b+u6MrvZQy9TU4sNNU9TUrMYCNLEZ0tiDVP1hf3TTFQnxuuc8mnWVTRQdXCEk\n/3ErGKjJVpFXyoXwAriWPa8AmteybNsa3uVzVir3H5lrLcV1Y+BQ1wPckCXBsNvG\nlqPEoygf/GX8jObPTMIkKVeoRjMTNwZ5LihUeQ0CgYATN7UaGkGfy9xAxzgukp6D\nOCtyIu0wojaJpxmum0ZQw2v0TJAbXAnK3xPLub//vJIswySOPbxhXeNZOiEUSbEx\njOMZIhHo8dXeVHes0CLUbDeca3z0ztwTsBaHC8Lh3TKXJ+WVHGZrx3A0KANOwey2\nZXUZShmlibXxQOF0+/Anhw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "github-actions-deploy@fibonacci-trading-ai.iam.gserviceaccount.com",
+  "client_id": "118137766859263958324",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/github-actions-deploy%40fibonacci-trading-ai.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

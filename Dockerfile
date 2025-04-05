@@ -25,8 +25,8 @@ ENV PYTHONUNBUFFERED=1
 ENV API_KEY=dev-key-for-testing
 
 # Copy your service account key
-COPY key.json /app/key.json
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
+#COPY key.json /app/key.json
+#ENV GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
 
 
 # Command to run the service
