@@ -1,5 +1,24 @@
-- run: |-
-    gcloud run deploy fibonacci-trading  # ← Use this exact name
-      --source . 
-      --region us-central1
-      --platform managed
+name: Deploy to Cloud Run
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+      - uses: google-github-actions/setup-gcloud@v1
+      
+      - run: |-
+          gcloud run deploy fibonacci-trading \
+            --source . \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated
