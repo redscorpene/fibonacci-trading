@@ -34,13 +34,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Get the directory where this script is located
+# Get the current directory (root directory)
 current_dir = Path(__file__).parent
 
 # Load model and scaler with proper path handling
 try:
-    model_path = current_dir / 'models' / 'fibonacci_model.pkl'
-    scaler_path = current_dir / 'models' / 'state_scaler.pkl'
+    model_path = current_dir / 'fibonacci_model.pkl'
+    scaler_path = current_dir / 'state_scaler.pkl'
     model = joblib.load(model_path)
     scaler = joblib.load(scaler_path)
 except FileNotFoundError as e:
