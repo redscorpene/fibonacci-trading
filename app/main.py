@@ -37,6 +37,10 @@ app.add_middleware(
 model = joblib.load('/app/app/models/fibonacci_model.pkl')
 scaler = joblib.load("/app/app/models/state_scaler.pkl")
 
+# OR Better: Use relative paths (recommended)
+#model = joblib.load('app/models/fibonacci_model.pkl')
+#scaler = joblib.load('app/models/state_scaler.pkl')
+
 # Initialize Firestore
 db = firestore.Client()
 
