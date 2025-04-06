@@ -3,48 +3,98 @@ on:
   push:
     branches: ["main"]
 
+env:
+  PROJECT_ID: "fibonacci-trading-ai"
+  REGION: "us-central1"
+  ARTIFACT_REPO: "fibonacci-trading-repo"
+  GCR_REPO: "gcr.io"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
       - uses: actions/checkout@v4
-      
-      # Auth with GCP
-      - uses: google-github-actions/auth@v1
+
+      # Authenticate to Google Cloud
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-      
+          create_credentials_file: true
+
       - uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: fibonacci-trading-ai
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
 
-      # Main trading service (your existing deployment)
-      - name: Deploy Main Service
+      # Configure Docker authentication
+      - name: Set up Docker Auth
         run: |
-          docker build -t us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest .
-          docker push us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest
-          gcloud run deploy fibonacci-trading \
-            --image us-central1-docker.pkg.dev/fibonacci-trading-ai/fibonacci-trading-repo/fibonacci-trading:latest \
-            --region us-central1 \
-            --platform managed \
-            --allow-unauthenticated
+          gcloud auth configure-docker ${{ env.GCR_REPO }}
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+          docker info
 
-      # Autonomous services (simplified)
+      # Build and push main trading service
+      - name: Build Main Trading Image
+        run: |
+          docker build \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/fibonacci-trading:latest \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/fibonacci-trading:${{ github.sha }} \
+            .
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/fibonacci-trading:latest
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/fibonacci-trading:${{ github.sha }}
+
+      # Deploy main trading service
+      - name: Deploy Main Trading Service
+        run: |
+          gcloud run deploy fibonacci-trading \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/fibonacci-trading:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --update-env-vars="GIT_COMMIT=${{ github.sha }}"
+
+      # Build and push autonomous base image
+      - name: Build Autonomous Base Image
+        run: |
+          docker build \
+            -f Dockerfile.autonomous \
+            -t ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:latest \
+            -t ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
+            .
+          docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:latest
+          docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }}
+
+      # Deploy autonomous services
       - name: Deploy Autonomous Services
         run: |
-          docker build -f Dockerfile.autonomous -t gcr.io/fibonacci-trading-ai/autonomous-base:latest .
-          docker push gcr.io/fibonacci-trading-ai/autonomous-base:latest
-          
-          # Market data collector
+          # Market Data Collector
           gcloud run deploy market-data-collector \
-            --image gcr.io/fibonacci-trading-ai/autonomous-base:latest \
-            --region us-central1 \
-            --command="python" --args="market_data_collector.py" \
-            --no-allow-unauthenticated
+            --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --memory 1Gi \
+            --command="python" \
+            --args="market_data_collector.py" \
+            --no-allow-unauthenticated \
+            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest"
 
-          # Autonomous learning
+          # Autonomous Learning
           gcloud run deploy autonomous-learning \
-            --image gcr.io/fibonacci-trading-ai/autonomous-base:latest \
-            --region us-central1 \
-            --command="python" --args="autonomous_learning.py" \
-            --no-allow-unauthenticated
+            --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --memory 2Gi \
+            --command="python" \
+            --args="autonomous_learning.py" \
+            --no-allow-unauthenticated \
+            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest"
+
+      # Final status check
+      - name: Verify Deployments
+        run: |
+          gcloud run services list --region ${{ env.REGION }}
