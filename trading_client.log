@@ -7691,3 +7691,449 @@
 
 2025-04-06 21:32:05,662 - INFO - Received keyboard interrupt
 2025-04-06 21:32:05,662 - INFO - Trading client stopped
+2025-04-06 23:07:41,612 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=168923, community_balance=0.0, retransmission=0.0, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-06 23:07:41,615 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-06 23:07:41,615 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-06 23:07:41,615 - INFO - Trading client started
+2025-04-06 23:07:42,166 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:07:48,227 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:07:52,636 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:07:57,997 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:03,334 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:08,665 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:14,000 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:19,445 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:24,778 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:30,129 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:35,330 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:40,666 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:46,127 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:51,456 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:08:56,840 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:02,174 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:07,522 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:12,845 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:18,169 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:23,501 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:28,828 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:34,155 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:39,520 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:44,851 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:50,206 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:09:55,539 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:00,876 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:06,214 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:11,551 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:16,898 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:22,238 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:27,598 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:32,932 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:38,281 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:43,617 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:48,982 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:54,320 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:10:59,653 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:04,994 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:10,330 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:15,758 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:21,111 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:26,474 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:31,820 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:37,268 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:43,450 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:51,331 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:53,668 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:11:59,030 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:04,434 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:09,762 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:15,098 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:20,441 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:25,803 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:31,131 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:36,470 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:42,179 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:47,522 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:52,853 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:12:58,294 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:03,719 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:09,033 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:14,361 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:19,795 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:25,157 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:30,554 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:35,980 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:41,329 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:46,707 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:52,052 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:13:57,579 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:02,906 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:08,334 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:13,665 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:19,000 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:24,329 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:29,663 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:34,996 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:40,343 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:45,708 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:51,049 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:14:56,392 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:01,712 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:07,046 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:12,376 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:17,750 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:23,086 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:28,412 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:33,747 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:39,078 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:44,422 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:49,811 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:15:55,137 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:00,486 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:05,807 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:11,140 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:16,535 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:21,856 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:27,216 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:32,615 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:37,940 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:43,362 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:48,698 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:54,038 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:16:59,440 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:04,780 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:10,152 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:15,515 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:20,856 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:26,192 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:31,546 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:36,870 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:42,221 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:47,573 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:52,900 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:17:58,227 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:03,552 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:08,967 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:14,284 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:19,619 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:24,942 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:30,275 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:35,591 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:41,020 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:46,370 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:51,706 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:18:57,034 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:02,427 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:07,748 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:13,064 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:18,406 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:23,819 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:29,151 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:34,477 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:39,898 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:45,327 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:50,658 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:19:55,991 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:01,315 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:06,648 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:11,980 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:17,300 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:22,698 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:28,021 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:33,447 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:38,783 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:44,104 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:49,435 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:20:54,854 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:00,176 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:05,503 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:10,838 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:16,169 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:21,528 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:26,854 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:32,232 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:37,555 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:42,889 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:48,220 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:53,554 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:21:58,881 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:04,200 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:09,605 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:14,941 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:20,277 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:25,613 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:30,941 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:36,285 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:41,653 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:46,971 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:52,320 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:22:57,654 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:02,976 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:08,307 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:13,644 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:18,988 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:24,314 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:29,638 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:34,966 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:40,330 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:45,671 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:51,081 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:23:56,522 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:01,849 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:07,190 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:12,527 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:17,862 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:23,199 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:28,549 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:33,881 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:39,217 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:44,552 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:49,877 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:24:55,211 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:00,542 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:05,872 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:11,259 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:16,598 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:22,010 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:27,339 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:32,695 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:38,085 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:43,417 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:48,840 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:54,254 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:25:59,643 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:05,033 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:10,472 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:15,921 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:21,441 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:26,798 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:32,153 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:37,490 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:42,802 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:48,149 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:53,555 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:26:58,925 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:04,321 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:09,916 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:15,306 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:20,716 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:26,044 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:31,442 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:36,866 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:42,297 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:47,628 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:52,991 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:27:58,322 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:03,696 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:09,028 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:14,449 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:19,788 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:25,159 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:30,498 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:35,951 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:41,301 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:46,705 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:52,033 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:28:57,362 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:02,782 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:08,197 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:13,636 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:18,959 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:24,386 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:29,728 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:35,343 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:40,750 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:46,084 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:51,414 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:29:56,848 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:02,188 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:07,559 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:12,883 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:18,259 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:23,675 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:29,102 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:34,585 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:39,904 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:45,250 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:50,706 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:30:56,126 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:01,700 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:07,041 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:12,407 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:17,734 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:23,271 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:28,697 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:34,022 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:39,352 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:44,684 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:50,033 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:31:55,424 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:00,743 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:06,175 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:11,599 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:17,017 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:22,348 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:27,680 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:33,010 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:38,405 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:43,829 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:49,190 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:54,585 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:32:59,964 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:05,369 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:10,751 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:16,114 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:21,460 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:26,838 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:32,171 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:37,515 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:33:42,850 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:17,912 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:23,544 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:28,887 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:34,273 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:39,694 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:45,122 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:50,555 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:43:55,921 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:01,250 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:09,311 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:13,766 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:17,117 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:22,449 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:27,809 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:33,119 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:38,478 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:43,803 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:49,227 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:54,551 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:44:59,907 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:05,229 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:10,652 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:16,193 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:22,319 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:27,522 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:32,074 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:37,387 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:42,785 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:48,118 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:53,430 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:45:58,769 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:04,846 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:09,192 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:15,605 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:20,069 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:25,392 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:30,797 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:36,113 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:41,450 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:46,885 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:46:52,222 - ERROR - API error: 500 - {"detail":"Error analyzing market: 'str' object has no attribute 'get'"}
+2025-04-06 23:47:06,334 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:08,081 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:14,123 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:18,576 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:23,994 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:29,762 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:35,089 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:40,438 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:45,762 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:51,152 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:47:56,517 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:01,844 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:07,191 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:12,518 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:17,901 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:23,297 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:28,834 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:34,431 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:39,760 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:45,254 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:50,644 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:48:56,116 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:01,618 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:07,204 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:12,776 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:18,119 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:23,544 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:28,890 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:34,242 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:39,564 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:44,938 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:50,300 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:49:55,752 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:01,441 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:06,998 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:12,396 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:18,013 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:23,562 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:28,964 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:34,375 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:39,819 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:45,682 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:51,308 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:50:56,780 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:02,148 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:07,695 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:13,938 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:18,344 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:23,889 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:29,505 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:35,556 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:39,959 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:45,395 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:50,854 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:51:56,346 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:01,854 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:07,391 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:12,828 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:18,239 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:23,718 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:29,143 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:34,730 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:40,263 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:45,999 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:51,628 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:52:57,062 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:02,893 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:08,315 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:13,713 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:19,277 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:24,732 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:30,199 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:35,689 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:41,220 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:46,919 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:52,417 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:53:57,927 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:03,308 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:08,821 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:14,365 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:19,818 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:25,264 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:30,750 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:36,484 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:42,211 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:47,685 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:53,120 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:54:58,611 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:03,993 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:09,356 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:14,819 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:20,976 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:28,739 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:31,101 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:36,637 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:42,161 - ERROR - API error: 500 - {"detail":""}
+2025-04-06 23:55:47,576 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:01:54,245 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=171577, community_balance=0.0, retransmission=0.0, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-07 01:01:54,247 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-07 01:01:54,250 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-07 01:01:54,252 - INFO - Trading client started
+2025-04-07 01:01:54,637 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:01:59,991 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:02:05,370 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:02:10,720 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:02:16,324 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:02:21,685 - ERROR - API error: 500 - {"detail":""}
+2025-04-07 01:02:25,850 - INFO - Received keyboard interrupt
+2025-04-07 01:02:25,852 - INFO - Trading client stopped

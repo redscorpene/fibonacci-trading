@@ -259,8 +259,6 @@ def calculate_fibonacci_levels(df: pd.DataFrame, broken_candle_idx: int = None):
     }
     
     return fib_levels
-
-# Endpoint to analyze market data and provide a trading signal
 @app.post("/analyze")
 async def analyze_market(request: Request, background_tasks: BackgroundTasks):
     """Analyze market data and return trading decision"""
@@ -274,6 +272,11 @@ async def analyze_market(request: Request, background_tasks: BackgroundTasks):
         account = body.get('account')
         positions = body.get('active_positions', [])
         
+        # Ensure 'current_tick' values are numbers
+        bid_price = float(current_tick.get('bid', 0))
+        ask_price = float(current_tick.get('ask', 0))
+        
+        # Prepare the data frame and model input
         df = prepare_data(candles)
         model_input = create_model_input(df, account, current_tick, positions)
         
@@ -283,6 +286,11 @@ async def analyze_market(request: Request, background_tasks: BackgroundTasks):
         # Get Fibonacci retracement levels
         fib_levels = calculate_fibonacci_levels(df)
         
+        # Ensure Fibonacci levels are numeric
+        fib_0_0 = float(fib_levels.get("0.0%", 0))
+        fib_38_2 = float(fib_levels.get("38.2%", 0))
+        fib_61_8 = float(fib_levels.get("61.8%", 0))
+        
         # Determine action based on the model prediction
         action = "HOLD" if prediction == 0 else "BUY" if prediction > 0 else "SELL"
         
@@ -290,9 +298,9 @@ async def analyze_market(request: Request, background_tasks: BackgroundTasks):
         signal = TradingSignal(
             action=action,
             lot_size=TRADING_SETTINGS["min_lot_size"],
-            entry_price=current_tick['bid'] if action == "BUY" else current_tick['ask'],
-            stop_loss=fib_levels["0.0%"],
-            take_profit=fib_levels["38.2%"] if action == "BUY" else fib_levels["61.8%"],
+            entry_price=bid_price if action == "BUY" else ask_price,
+            stop_loss=fib_0_0,
+            take_profit=fib_38_2 if action == "BUY" else fib_61_8,
             message="Trading signal generated successfully"
         )
         
