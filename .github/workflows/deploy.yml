@@ -67,43 +67,42 @@ jobs:
             .
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:latest
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }}
-
-      # Deploy autonomous services with health checks and timeouts
-      - name: Deploy Autonomous Services
-        run: |
-          # Market Data Collector
-          gcloud run deploy market-data-collector \
-            --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
-            --region ${{ env.REGION }} \
-            --platform managed \
-            --memory 1Gi \
-            --cpu 1 \
-            --min-instances 1 \
-            --max-instances 1 \
-            --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
-            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
-            --timeout=300s \
-            --health-check-path="/" \
-            --health-check-interval=10s \
-            --port=8080
-
-          # Autonomous Learning
-          gcloud run deploy autonomous-learning \
-            --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
-            --region ${{ env.REGION }} \
-            --platform managed \
-            --memory 2Gi \
-            --cpu 1 \
-            --min-instances 1 \
-            --max-instances 1 \
-            --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
-            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
-            --timeout=300s \
-            --health-check-path="/" \
-            --health-check-interval=10s \
-            --port=8080
+#deploy autonomous services
+          - name: Deploy Autonomous Services
+          run: |
+            # Market Data Collector
+            gcloud run deploy market-data-collector \
+              --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
+              --region ${{ env.REGION }} \
+              --platform managed \
+              --memory 1Gi \
+              --cpu 1 \
+              --min-instances 1 \
+              --max-instances 1 \
+              --no-allow-unauthenticated \
+              --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
+              --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
+              --timeout=300s \
+              --port=8080 \
+              --ingress=internal \
+              --concurrency=10
+        
+            # Autonomous Learning
+            gcloud run deploy autonomous-learning \
+              --image ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }} \
+              --region ${{ env.REGION }} \
+              --platform managed \
+              --memory 2Gi \
+              --cpu 1 \
+              --min-instances 1 \
+              --max-instances 1 \
+              --no-allow-unauthenticated \
+              --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
+              --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
+              --timeout=300s \
+              --port=8080 \
+              --ingress=internal \
+              --concurrency=10
 
       # Final status check
       - name: Verify Deployments
