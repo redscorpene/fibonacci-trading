@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements-autonomous.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy only the necessary files for these services
+# Copy application files
 COPY market_data_collector.py autonomous_learning.py ./
 
 # Create directories
@@ -19,7 +19,12 @@ RUN mkdir -p logs models
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
+ENV PORT=8080
+EXPOSE 8080
 
-# Default command (will be overridden in deployment)
+# Health check (for container runtime)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/ || exit 1
+
+# Run the FastAPI server
 CMD ["python", "market_data_collector.py"]

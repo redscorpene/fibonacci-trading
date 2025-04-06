@@ -36,7 +36,6 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ env.GCR_REPO }}
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
-          docker info
 
       # Build and push main trading service
       - name: Build Main Trading Image
@@ -69,7 +68,7 @@ jobs:
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:latest
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }}
 
-      # Deploy autonomous services
+      # Deploy autonomous services with health checks and timeouts
       - name: Deploy Autonomous Services
         run: |
           # Market Data Collector
@@ -78,10 +77,16 @@ jobs:
             --region ${{ env.REGION }} \
             --platform managed \
             --memory 1Gi \
-            --command="python" \
-            --args="market_data_collector.py" \
+            --cpu 1 \
+            --min-instances 1 \
+            --max-instances 1 \
             --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest"
+            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
+            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
+            --timeout=300s \
+            --health-check-path="/" \
+            --health-check-interval=10s \
+            --port=8080
 
           # Autonomous Learning
           gcloud run deploy autonomous-learning \
@@ -89,12 +94,24 @@ jobs:
             --region ${{ env.REGION }} \
             --platform managed \
             --memory 2Gi \
-            --command="python" \
-            --args="autonomous_learning.py" \
+            --cpu 1 \
+            --min-instances 1 \
+            --max-instances 1 \
             --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest"
+            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
+            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
+            --timeout=300s \
+            --health-check-path="/" \
+            --health-check-interval=10s \
+            --port=8080
 
       # Final status check
       - name: Verify Deployments
         run: |
           gcloud run services list --region ${{ env.REGION }}
+          echo "Main trading service URL:"
+          gcloud run services describe fibonacci-trading --region ${{ env.REGION }} --format='value(status.url)'
+          echo "Market data collector URL:"
+          gcloud run services describe market-data-collector --region ${{ env.REGION }} --format='value(status.url)'
+          echo "Autonomous learning URL:"
+          gcloud run services describe autonomous-learning --region ${{ env.REGION }} --format='value(status.url)'
