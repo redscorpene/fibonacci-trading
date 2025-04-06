@@ -85,9 +85,9 @@ jobs:
             --no-allow-unauthenticated \
             --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
             --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
-            --timeout=300s \
+            --timeout=600s \
             --port=8080 \
-            --concurrency=10
+            --concurrency=1
 
           # Autonomous Learning
           gcloud run deploy autonomous-learning \
