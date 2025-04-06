@@ -70,7 +70,7 @@ jobs:
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:latest
           docker push ${{ env.GCR_REPO }}/${{ env.PROJECT_ID }}/autonomous-base:${{ github.sha }}
 
-      # Deploy autonomous services
+      # Deploy autonomous services using the same credentials as main
       - name: Deploy Autonomous Services
         run: |
           # Market Data Collector
@@ -83,9 +83,7 @@ jobs:
             --min-instances 1 \
             --max-instances 1 \
             --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
-            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
-            --timeout=600s \
+            --set-env-vars="GIT_COMMIT=${{ github.sha }}" \
             --port=8080 \
             --concurrency=1
 
@@ -99,11 +97,9 @@ jobs:
             --min-instances 1 \
             --max-instances 1 \
             --no-allow-unauthenticated \
-            --update-secrets="SERVICE_ACCOUNT_KEY=fibonacci-key:latest" \
-            --set-env-vars="GOOGLE_APPLICATION_CREDENTIALS=/app/key.json" \
-            --timeout=300s \
+            --set-env-vars="GIT_COMMIT=${{ github.sha }}" \
             --port=8080 \
-            --concurrency=10
+            --concurrency=1
 
       # Final status check
       - name: Verify Deployments
