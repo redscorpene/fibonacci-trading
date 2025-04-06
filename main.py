@@ -248,213 +248,60 @@ def calculate_fibonacci_levels(df: pd.DataFrame, broken_candle_idx: int = None):
     low_price = df.loc[low_idx, 'low']
     price_range = high_price - low_price
     
-    # Get Fibonacci levels as a dict
-    levels = {
-        "0.0": low_price,
-        "0.236": low_price + 0.236 * price_range,
-        "0.382": low_price + 0.382 * price_range,
-        "0.5": low_price + 0.5 * price_range,
-        "0.618": low_price + 0.618 * price_range,
-        "0.786": low_price + 0.786 * price_range,
-        "1.0": high_price,
-        "1.272": high_price + 0.272 * price_range,
-        "1.618": high_price + 0.618 * price_range
+    # Fibonacci levels
+    fib_levels = {
+        "0.0%": high_price,
+        "23.6%": high_price - 0.236 * price_range,
+        "38.2%": high_price - 0.382 * price_range,
+        "50.0%": high_price - 0.5 * price_range,
+        "61.8%": high_price - 0.618 * price_range,
+        "100.0%": low_price
     }
     
-    return levels, high_idx, low_idx
+    return fib_levels
 
-def log_trade_decision(decision: Dict, request_data: Dict):
-    """Log trading decision to Firestore"""
-    try:
-        trade_ref = db.collection('trading_decisions').document()
-        trade_data = {
-            **decision,
-            'account_info': request_data.get('account', {}),
-            'timestamp': datetime.utcnow().isoformat(),
-            'candle_data': request_data.get('candles', [])[-1] if request_data.get('candles') else {}
-        }
-        trade_ref.set(trade_data)
-    except Exception as e:
-        print(f"Error logging trade: {e}")
-
-# API Endpoints
+# Endpoint to analyze market data and provide a trading signal
 @app.post("/analyze")
 async def analyze_market(request: Request, background_tasks: BackgroundTasks):
     """Analyze market data and return trading decision"""
     try:
-        # Parse JSON directly from request body
-        body = await request.body()
-        request_data = json.loads(body.decode())
+        body = await request.json()
+        await get_api_key(request)
         
-        # Validate API key
-        api_key = request_data.get('api_key')
-        if api_key != os.environ.get('API_KEY', 'dev-key'):
-            raise HTTPException(status_code=401, detail="Invalid API key")
+        # Extract and prepare data
+        candles = body.get('candles')
+        current_tick = body.get('current_tick')
+        account = body.get('account')
+        positions = body.get('active_positions', [])
         
-        # Prepare data and get prediction
-        df = prepare_data(request_data['candles'])
-        features = create_model_input(
-            df, 
-            request_data['account'], 
-            request_data['current_tick'],
-            request_data.get('active_positions', [])
+        df = prepare_data(candles)
+        model_input = create_model_input(df, account, current_tick, positions)
+        
+        # Make prediction using the trained model
+        prediction = model.predict([model_input])[0]
+        
+        # Get Fibonacci retracement levels
+        fib_levels = calculate_fibonacci_levels(df)
+        
+        # Determine action based on the model prediction
+        action = "HOLD" if prediction == 0 else "BUY" if prediction > 0 else "SELL"
+        
+        # Signal generation
+        signal = TradingSignal(
+            action=action,
+            lot_size=TRADING_SETTINGS["min_lot_size"],
+            entry_price=current_tick['bid'] if action == "BUY" else current_tick['ask'],
+            stop_loss=fib_levels["0.0%"],
+            take_profit=fib_levels["38.2%"] if action == "BUY" else fib_levels["61.8%"],
+            message="Trading signal generated successfully"
         )
         
-        # Make prediction if model is available
-        if model is not None:
-            features_normalized = scaler.transform(features.reshape(1, -1))
-            
-            # For ensemble models
-            if hasattr(model, '__iter__'):
-                prediction = np.mean([m.predict(features_normalized)[0] for m in model], axis=0)
-            else:
-                prediction = model.predict(features_normalized)[0]
-                
-            # Use prediction to determine action
-            confidence = float(np.max(prediction))
-            
-            # Determine trade action
-            action = "HOLD"
-            lot_size = 0.0
-            entry_price = None
-            stop_loss = None
-            take_profit = None
-            message = "No trading opportunity detected"
-            redraw_fibo = False
-            
-            # Simple example decision logic (implement your full logic)
-            if confidence > 0.7:
-                # Check for broken candle pattern
-                broken_high = any([df.iloc[-1][f'breaks_candle_{n}_high'] == 1 for n in range(2, 5)])
-                broken_low = any([df.iloc[-1][f'breaks_candle_{n}_low'] == 1 for n in range(2, 5)])
-                
-                current_price = request_data['current_tick']['bid']
-                
-                if broken_high:
-                    action = "BUY"
-                    message = "Bullish breakout detected"
-                    
-                    # Calculate Fibonacci retracement levels for this trade
-                    fib_levels, _, _ = calculate_fibonacci_levels(df)
-                    
-                    # Set entry, SL and TP
-                    entry_price = current_price
-                    stop_loss = fib_levels["0.5"]  # Use 50% retracement as SL
-                    take_profit = fib_levels["1.272"]  # Use 127.2% extension as TP
-                    
-                    # Calculate position size (simplified)
-                    account_balance = request_data['account']['balance']
-                    risk_pct = min(0.02, prediction[0])  # Risk up to 2% of account
-                    risk_amount = account_balance * risk_pct
-                    
-                    # Calculate position size based on SL distance
-                    sl_distance = abs(entry_price - stop_loss)
-                    if sl_distance > 0:
-                        lot_size = max(min(risk_amount / sl_distance, TRADING_SETTINGS["max_lot_size"]), 
-                                      TRADING_SETTINGS["min_lot_size"])
-                    else:
-                        lot_size = TRADING_SETTINGS["min_lot_size"]
-                        
-                elif broken_low:
-                    action = "SELL"
-                    message = "Bearish breakdown detected"
-                    
-                    # Calculate Fibonacci retracement levels for this trade
-                    fib_levels, _, _ = calculate_fibonacci_levels(df)
-                    
-                    # Set entry, SL and TP
-                    entry_price = current_price
-                    stop_loss = fib_levels["0.5"]  # Use 50% retracement as SL
-                    take_profit = fib_levels["0.0"]  # Use 0% retracement as TP
-                    
-                    # Calculate position size (simplified)
-                    account_balance = request_data['account']['balance']
-                    risk_pct = min(0.02, prediction[0])  # Risk up to 2% of account
-                    risk_amount = account_balance * risk_pct
-                    
-                    # Calculate position size based on SL distance
-                    sl_distance = abs(entry_price - stop_loss)
-                    if sl_distance > 0:
-                        lot_size = max(min(risk_amount / sl_distance, TRADING_SETTINGS["max_lot_size"]), 
-                                      TRADING_SETTINGS["min_lot_size"])
-                    else:
-                        lot_size = TRADING_SETTINGS["min_lot_size"]
-        else:
-            # Default response when no model is available
-            action = "HOLD"
-            lot_size = 0.0
-            entry_price = None
-            stop_loss = None
-            take_profit = None
-            confidence = 0.0
-            message = "Model not available"
-            redraw_fibo = False
-            
-        # Create trading signal
-        trade_id = str(uuid.uuid4())
-        signal = {
-            "action": action,
-            "lot_size": float(lot_size),
-            "entry_price": float(entry_price) if entry_price is not None else None,
-            "stop_loss": float(stop_loss) if stop_loss is not None else None,
-            "take_profit": float(take_profit) if take_profit is not None else None,
-            "confidence": float(confidence),
-            "redraw_fibo": redraw_fibo,
-            "message": message,
-            "trade_id": trade_id,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-        
-        # Log the decision
-        background_tasks.add_task(log_trade_decision, signal, request_data)
-        
         return signal
-            
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error analyzing market: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
+# Health check endpoint
 @app.get("/health")
 async def health_check():
-    """Health check endpoint"""
-    try:
-        # Verify connections
-        test_doc = db.collection('health').document('check')
-        test_doc.set({'timestamp': datetime.utcnow().isoformat()})
-        
-        return {
-            "status": "healthy",
-            "services": {
-                "firestore": "connected",
-                "model": "loaded" if model is not None else "not loaded",
-                "scaler": "loaded" if scaler is not None else "not loaded"
-            },
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Service unavailable: {str(e)}")
+    return {"status": "healthy"}
 
-@app.post("/trade-result")
-async def record_trade_result(request: Request):
-    """Record trade result for continuous learning"""
-    try:
-        body = await request.body()
-        result_data = json.loads(body.decode())
-        
-        # Validate required fields
-        if 'trade_id' not in result_data:
-            raise HTTPException(status_code=400, detail="Missing trade_id")
-            
-        # Record to Firestore
-        result_ref = db.collection('trade_results').document()
-        result_ref.set({
-            **result_data,
-            'timestamp': datetime.utcnow().isoformat()
-        })
-        
-        return {"status": "success", "message": "Trade result recorded"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error recording trade result: {str(e)}")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
