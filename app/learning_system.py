@@ -1,25 +1,19 @@
 import numpy as np
+import pandas as pd
+import joblib
+from datetime import datetime, timedelta
 import json
 import logging
 import os
-from datetime import datetime, timedelta
-import joblib
-
 from sqlalchemy.orm import Session
 from .database import Trade
 
-from google.cloud import storage
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
-
 class ContinuousLearningSystem:
-    def __init__(self, model_path="app/models/fibonacci_model.joblib"):
+    def __init__(self, model_path="app/models/fibonacci_model.pkl", learning_rate=0.0001):
         """Initialize the continuous learning system"""
         self.model_path = model_path
+        self.learning_rate = learning_rate
         self.logger = logging.getLogger(__name__)
-        self.scaler = StandardScaler()
         
         # Load model if it exists, otherwise create a placeholder
         if os.path.exists(model_path):
@@ -32,25 +26,19 @@ class ContinuousLearningSystem:
         else:
             self.logger.warning(f"Model not found at {model_path}, waiting for initial model")
             self.model = None
-    
-    def save_model_to_gcs(self, local_path, bucket_name="fibonacci-trading-models"):
-        """Save model to Google Cloud Storage"""
-        try:
-            storage_client = storage.Client()
-            bucket = storage_client.bucket(bucket_name)
             
-            # Get filename from path
-            filename = os.path.basename(local_path)
-            
-            # Upload to GCS
-            blob = bucket.blob(filename)
-            blob.upload_from_filename(local_path)
-            
-            self.logger.info(f"Model saved to GCS: gs://{bucket_name}/{filename}")
-            return True
-        except Exception as e:
-            self.logger.error(f"Error saving model to GCS: {e}")
-            return False
+        # Check if we should use autonomous learning
+        self.use_autonomous_learning = os.environ.get('USE_AUTONOMOUS_LEARNING', '0') == '1'
+        if self.use_autonomous_learning:
+            self.logger.info("Autonomous learning is enabled")
+            try:
+                from google.cloud import firestore
+                self.db_firestore = firestore.Client()
+                self.firestore_available = True
+                self.logger.info("Connected to Firestore for autonomous learning")
+            except Exception as e:
+                self.logger.error(f"Could not connect to Firestore: {e}")
+                self.firestore_available = False
     
     def get_completed_trades(self, db: Session, since=None):
         """Retrieve completed trades from database"""
@@ -69,6 +57,37 @@ class ContinuousLearningSystem:
         
         except Exception as e:
             self.logger.error(f"Error retrieving completed trades: {e}")
+            return []
+    
+    def get_autonomous_learning_data(self, days=7):
+        """Get learning data collected autonomously from Firestore"""
+        if not self.use_autonomous_learning or not self.firestore_available:
+            self.logger.info("Autonomous learning is disabled or Firestore unavailable")
+            return []
+            
+        try:
+            cutoff_time = datetime.utcnow() - timedelta(days=days)
+            
+            # Query Firestore for autonomous learning data
+            docs = self.db_firestore.collection('learning_data').where(
+                'timestamp', '>=', cutoff_time.isoformat()
+            ).stream()
+            
+            # Process data for learning
+            patterns = []
+            for doc in docs:
+                data = doc.to_dict()
+                
+                # Basic validation
+                if 'pattern_type' not in data or 'profit' not in data:
+                    continue
+                    
+                patterns.append(data)
+            
+            self.logger.info(f"Retrieved {len(patterns)} autonomous learning patterns")
+            return patterns
+        except Exception as e:
+            self.logger.error(f"Error retrieving autonomous learning data: {e}")
             return []
     
     def prepare_learning_data(self, trades):
@@ -144,86 +163,140 @@ class ContinuousLearningSystem:
             
         return np.array(features), np.array(targets)
     
+    def prepare_autonomous_learning_data(self, patterns):
+        """Prepare training data from autonomous learning patterns"""
+        if not patterns:
+            return None, None
+            
+        features = []
+        targets = []
+        
+        for pattern in patterns:
+            try:
+                # Create feature vector similar to what's used in real-time prediction
+                # This is a simplified example - you would need to match your feature extraction
+                pattern_type = pattern.get('pattern_type')
+                is_bullish = 1 if pattern_type == 'bullish' else 0
+                is_bearish = 1 if pattern_type == 'bearish' else 0
+                
+                # Basic features
+                feature = np.array([
+                    0.0,  # Price action (placeholder)
+                    0.0,  # Candle range (placeholder)
+                    0.0,  # Body ratio (placeholder)
+                    0.0,  # Volatility (placeholder)
+                    0.0,  # Volatility std (placeholder)
+                    is_bullish,  # Pattern type bullish
+                    is_bearish,  # Pattern type bearish
+                    0.0,  # Volume (placeholder)
+                    0.0,  # Time (placeholder)
+                    1.0,  # Account state (normalized)
+                    0.0,  # No open trade
+                    0.0,  # No trade duration
+                    0.0,  # No fib redrawn
+                    1.0,  # Target metric
+                    0.0,  # Market trend (placeholder)
+                    0.0   # Spread factor (placeholder)
+                ])
+                
+                # Calculate success metrics
+                success = pattern.get('tp_hit', False)
+                profit = pattern.get('profit', 0)
+                fib_range = pattern.get('fib_range', 0)
+                
+                # Default action values
+                lot_pct = 0.5  # Default
+                sl_mult = 1.0  # Default
+                tp_mult = 1.0  # Default
+                
+                # Adjust based on success/failure
+                if success:
+                    lot_pct = min(0.6, lot_pct * 1.1)  # Slightly increase lot size for successful patterns
+                else:
+                    lot_pct = max(0.3, lot_pct * 0.9)  # Slightly decrease lot size for unsuccessful patterns
+                
+                # Calculate reward score based on profit relative to range
+                if fib_range > 0:
+                    reward_score = min(max(profit / fib_range, -1.0), 1.0)
+                    
+                    # Adjust SL/TP multipliers based on outcome
+                    sl_mult = max(min(sl_mult * (1 + 0.1 * reward_score), 2.0), 0.5)
+                    tp_mult = max(min(tp_mult * (1 + 0.1 * reward_score), 2.0), 0.5)
+                
+                # Add to training data
+                features.append(feature)
+                targets.append([lot_pct, sl_mult, tp_mult])
+                
+            except Exception as e:
+                self.logger.error(f"Error processing autonomous pattern for learning: {e}")
+                continue
+        
+        if not features:
+            return None, None
+            
+        return np.array(features), np.array(targets)
+    
     def update_model(self, db: Session):
-        """Update the model based on recent trading results"""
+        """Update the model based on recent trading results and autonomous learning"""
         try:
+            # Check if model is loaded
+            if self.model is None:
+                self.logger.error("No model loaded, cannot update")
+                return False
+            
             # Get recent completed trades
             trades = self.get_completed_trades(db)
             
-            if not trades:
-                self.logger.info("No trades to learn from")
+            # Prepare data from trades
+            X_trades, y_trades = self.prepare_learning_data(trades)
+            
+            # Get autonomous learning data if enabled
+            if self.use_autonomous_learning and self.firestore_available:
+                patterns = self.get_autonomous_learning_data()
+                X_patterns, y_patterns = self.prepare_autonomous_learning_data(patterns)
+            else:
+                X_patterns, y_patterns = None, None
+            
+            # Combine data sources if both available
+            if X_trades is not None and X_patterns is not None:
+                X = np.vstack([X_trades, X_patterns])
+                y = np.vstack([y_trades, y_patterns])
+                self.logger.info(f"Combined {len(X_trades)} trade examples with {len(X_patterns)} autonomous examples")
+            elif X_trades is not None:
+                X, y = X_trades, y_trades
+                self.logger.info(f"Using {len(X_trades)} trade examples")
+            elif X_patterns is not None:
+                X, y = X_patterns, y_patterns
+                self.logger.info(f"Using {len(X_patterns)} autonomous examples")
+            else:
+                self.logger.info("No learning data available from any source")
                 return False
             
-            self.logger.info(f"Found {len(trades)} completed trades for learning")
-            
-            # Prepare training data
-            X, y = self.prepare_learning_data(trades)
-            
-            if X is None or len(X) == 0:
-                self.logger.info("No valid learning data could be extracted from trades")
+            if len(X) == 0:
+                self.logger.info("No valid learning data could be extracted")
                 return False
             
-            # Scale features
-            X_scaled = self.scaler.fit_transform(X)
+            self.logger.info(f"Training model on {len(X)} examples")
             
-            # If model doesn't exist, create a new one
-            if self.model is None:
-                self.model = RandomForestRegressor(
-                    n_estimators=100, 
-                    random_state=42, 
-                    max_depth=10, 
-                    min_samples_split=5
-                )
-            
-            # Split data for validation
-            X_train, X_val, y_train, y_val = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-            
-            # Fit the model
-            self.model.fit(X_train, y_train)
-            
-            # Validate the model
-            y_pred = self.model.predict(X_val)
-            val_mse = mean_squared_error(y_val, y_pred)
-            self.logger.info(f"Model validation MSE: {val_mse}")
+            # Update each model in the ensemble
+            for i, model in enumerate(self.model):
+                # Train on the data
+                model.fit(X, y[:, i])
             
             # Save updated model
             timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-            backup_path = f"app/models/fibonacci_model_backup_{timestamp}.joblib"
+            backup_path = f"app/models/fibonacci_model_backup_{timestamp}.pkl"
             
             # Create a backup
             joblib.dump(self.model, backup_path)
             self.logger.info(f"Model backup saved to {backup_path}")
-            
-            # Save to GCS if running in cloud environment
-            if os.environ.get("GOOGLE_CLOUD_PROJECT"):
-                self.save_model_to_gcs(backup_path)
                 
             # Replace current model
             joblib.dump(self.model, self.model_path)
-            joblib.dump(self.scaler, self.model_path.replace('.joblib', '_scaler.joblib'))
             
-            self.logger.info("Model updated and saved successfully")
+            self.logger.info("Model updated and saved")
             return True
             
         except Exception as e:
             self.logger.error(f"Error updating model: {e}")
             return False
-
-    def predict(self, features):
-        """Make predictions using the trained model"""
-        try:
-            if self.model is None:
-                self.logger.error("No model loaded for prediction")
-                return None
-            
-            # Scale the input features
-            features_scaled = self.scaler.transform(features)
-            
-            # Make prediction
-            prediction = self.model.predict(features_scaled)
-            
-            return prediction
-        
-        except Exception as e:
-            self.logger.error(f"Error making prediction: {e}")
-            return None

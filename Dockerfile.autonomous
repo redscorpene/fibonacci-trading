@@ -1,0 +1,25 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements-autonomous.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy only the necessary files for these services
+COPY market_data_collector.py autonomous_learning.py ./
+
+# Create directories
+RUN mkdir -p logs models
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
+
+# Default command (will be overridden in deployment)
+CMD ["python", "market_data_collector.py"]
