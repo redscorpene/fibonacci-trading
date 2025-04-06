@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
 # Copy the credentials JSON file to the container
-COPY fibonacci-trading-ai-930bad2a6bec.json /fibonacci_trading_ai/gcp_credentials.json
+COPY gcp_credentials.json /fibonacci_trading_ai/gcp_credentials.json
 
 # Set the environment variable for Google Cloud authentication
 ENV GOOGLE_APPLICATION_CREDENTIALS="/fibonacci_trading_ai/gcp_credentials.json"
