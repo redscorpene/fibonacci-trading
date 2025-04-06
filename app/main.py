@@ -4,10 +4,11 @@ import json
 import time
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header, Request
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
@@ -33,14 +34,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load model and scaler
+# Get the directory where this script is located
+current_dir = Path(__file__).parent
+
+# Load model and scaler with proper path handling
 try:
-    model = joblib.load('/app/app/models/fibonacci_model.pkl')
-    scaler = joblib.load("/app/app/models/state_scaler.pkl")
-except FileNotFoundError:
-    # Fallback to relative paths
-    model = joblib.load('app/models/fibonacci_model.pkl')
-    scaler = joblib.load('app/models/state_scaler.pkl')
+    model_path = current_dir / 'models' / 'fibonacci_model.pkl'
+    scaler_path = current_dir / 'models' / 'state_scaler.pkl'
+    model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+except FileNotFoundError as e:
+    raise RuntimeError(f"Failed to load model files: {e}")
 
 # Initialize Firestore
 db = firestore.Client()
@@ -129,7 +133,7 @@ async def get_api_key(request: Request):
     """Extract and validate API key from request body (for JSON payload)"""
     try:
         body = await request.json()
-        api_key = json.loads(body).get('api_key')
+        api_key = body.get('api_key')
         
         # Get valid key from Secret Manager or environment
         try:
@@ -280,7 +284,7 @@ async def analyze_market(request: Request, background_tasks: BackgroundTasks):
     try:
         # Parse JSON directly from request body
         body = await request.body()
-        request_data = json.loads(json.loads(body.decode()))
+        request_data = json.loads(body.decode())
         
         # Validate API key
         api_key = request_data.get('api_key')
@@ -434,7 +438,7 @@ async def record_trade_result(request: Request):
     """Record trade result for continuous learning"""
     try:
         body = await request.body()
-        result_data = json.loads(body)
+        result_data = json.loads(body.decode())
         
         # Validate required fields
         if 'trade_id' not in result_data:
@@ -453,4 +457,4 @@ async def record_trade_result(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
