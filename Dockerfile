@@ -1,9 +1,10 @@
 FROM python:3.10-slim
 
-# Environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    GOOGLE_APPLICATION_CREDENTIALS=/fibonacci_trading_ai/gcp_credentials.json
+# Copy the credentials JSON file to the container
+COPY fibonacci-trading-ai-930bad2a6bec.json /fibonacci_trading_ai/gcp_credentials.json
+
+# Set the environment variable for Google Cloud authentication
+ENV GOOGLE_APPLICATION_CREDENTIALS="/fibonacci_trading_ai/gcp_credentials.json"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -18,8 +19,12 @@ WORKDIR /
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+
 # Copy application code to the root directory
 COPY . .
+
+# Copy Google Cloud credentials file
+COPY gcp_credentials.json /fibonacci_trading_ai/gcp_credentials.json
 
 # Verify critical files exist
 RUN test -f "fibonacci_model.pkl" || (echo "ERROR: Missing fibonacci_model.pkl" && exit 1) && \
