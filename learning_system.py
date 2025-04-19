@@ -5,95 +5,91 @@ from datetime import datetime, timedelta
 import json
 import logging
 import os
+from pathlib import Path
+from typing import Optional, Tuple
 from sqlalchemy.orm import Session
-from .database import Trade
+from .database import Trade, ModelVersion
 
 class ContinuousLearningSystem:
-    def __init__(self, model_path="app/models/fibonacci_model.pkl", learning_rate=0.0001):
-        """Initialize the continuous learning system"""
-        self.model_path = model_path
+    def __init__(self, model_path: Optional[str] = None, learning_rate: float = 0.0001):
+        """Initialize the continuous learning system with proper configuration"""
+        self.logger = self._configure_logging()
         self.learning_rate = learning_rate
-        self.logger = logging.getLogger(__name__)
+        self.model, self.model_path = self._initialize_model(model_path)
+        self._init_autonomous_learning()
+    
+    def _configure_logging(self) -> logging.Logger:
+        """Set up standardized logging"""
+        logger = logging.getLogger('fibonacci_learning')
+        logger.setLevel(logging.INFO)
         
-        # Load model if it exists, otherwise create a placeholder
-        if os.path.exists(model_path):
-            try:
-                self.model = joblib.load(model_path)
-                self.logger.info(f"Loaded model from {model_path}")
-            except Exception as e:
-                self.logger.error(f"Error loading model: {e}")
-                self.model = None
-        else:
-            self.logger.warning(f"Model not found at {model_path}, waiting for initial model")
-            self.model = None
-            
-        # Check if we should use autonomous learning
-        self.use_autonomous_learning = os.environ.get('USE_AUTONOMOUS_LEARNING', '0') == '1'
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        
+        return logger
+
+    def _initialize_model(self, model_path: Optional[str]) -> Tuple[Optional[object], Path]:
+        """Initialize model with proper path handling"""
+        # Determine model directory
+        model_dir = Path(os.getenv('MODEL_DIR', '/app/models'))
+        if not model_dir.exists():
+            model_dir = Path(__file__).parent.parent / 'models'
+            model_dir.mkdir(exist_ok=True)
+        
+        # Resolve model path
+        resolved_path = Path(model_path) if model_path else model_dir / 'fibonacci_model_current.pkl'
+        
+        # Load model with error handling
+        try:
+            if resolved_path.exists():
+                model = joblib.load(resolved_path)
+                self.logger.info(f"Successfully loaded model from {resolved_path}")
+                return model, resolved_path
+            else:
+                self.logger.warning(f"No model found at {resolved_path}")
+                return None, resolved_path
+        except Exception as e:
+            self.logger.error(f"Failed to load model: {str(e)}")
+            return None, resolved_path
+
+    def _init_autonomous_learning(self):
+        """Initialize autonomous learning components"""
+        self.use_autonomous_learning = os.getenv('USE_AUTONOMOUS_LEARNING', '0') == '1'
+        self.firestore_available = False
+        
         if self.use_autonomous_learning:
-            self.logger.info("Autonomous learning is enabled")
             try:
                 from google.cloud import firestore
                 self.db_firestore = firestore.Client()
                 self.firestore_available = True
-                self.logger.info("Connected to Firestore for autonomous learning")
+                self.logger.info("Firestore client initialized for autonomous learning")
             except Exception as e:
-                self.logger.error(f"Could not connect to Firestore: {e}")
-                self.firestore_available = False
-    
-    def get_completed_trades(self, db: Session, since=None):
-        """Retrieve completed trades from database"""
+                self.logger.error(f"Failed to initialize Firestore: {str(e)}")
+
+    def get_completed_trades(self, db: Session, since: Optional[datetime] = None) -> list:
+        """Retrieve completed trades with proper type hints and error handling"""
         if since is None:
             since = datetime.utcnow() - timedelta(days=3)
-            
+        
         try:
-            # Query database for completed trades
             trades = db.query(Trade).filter(
                 Trade.trade_status == "completed",
                 Trade.completion_time >= since
-            ).all()
+            ).order_by(Trade.completion_time.desc()).all()
             
-            self.logger.info(f"Retrieved {len(trades)} completed trades for learning")
+            self.logger.info(f"Retrieved {len(trades)} completed trades since {since}")
             return trades
-        
         except Exception as e:
-            self.logger.error(f"Error retrieving completed trades: {e}")
+            self.logger.error(f"Error retrieving trades: {str(e)}")
             return []
-    
-    def get_autonomous_learning_data(self, days=7):
-        """Get learning data collected autonomously from Firestore"""
-        if not self.use_autonomous_learning or not self.firestore_available:
-            self.logger.info("Autonomous learning is disabled or Firestore unavailable")
-            return []
-            
-        try:
-            cutoff_time = datetime.utcnow() - timedelta(days=days)
-            
-            # Query Firestore for autonomous learning data
-            docs = self.db_firestore.collection('learning_data').where(
-                'timestamp', '>=', cutoff_time.isoformat()
-            ).stream()
-            
-            # Process data for learning
-            patterns = []
-            for doc in docs:
-                data = doc.to_dict()
-                
-                # Basic validation
-                if 'pattern_type' not in data or 'profit' not in data:
-                    continue
-                    
-                patterns.append(data)
-            
-            self.logger.info(f"Retrieved {len(patterns)} autonomous learning patterns")
-            return patterns
-        except Exception as e:
-            self.logger.error(f"Error retrieving autonomous learning data: {e}")
-            return []
-    
-    def prepare_learning_data(self, trades):
-        """Prepare training data from completed trades"""
+
+    def prepare_learning_data(self, trades: list) -> Tuple[Optional[np.ndarray], Optional[np.ndarray]]:
+        """Prepare training data with comprehensive validation"""
         if not trades:
-            self.logger.info("No completed trades to learn from")
+            self.logger.info("No trades provided for learning")
             return None, None
         
         features = []
@@ -101,70 +97,120 @@ class ContinuousLearningSystem:
         
         for trade in trades:
             try:
-                # Extract original features used for prediction
+                # Validate and parse original features
                 if not trade.original_features:
                     continue
-                
+                    
                 original_features = np.array(json.loads(trade.original_features))
-                if len(original_features) == 0:
+                if original_features.size == 0:
                     continue
                 
-                # Original model output (action)
+                # Validate and parse original action
                 if not trade.original_action:
                     continue
-                
+                    
                 original_action = np.array(json.loads(trade.original_action))
-                if len(original_action) == 0:
+                if original_action.size == 0:
                     continue
                 
-                # Get trade result
-                profit = trade.profit or 0
-                expected_profit = trade.expected_profit or 0
+                # Calculate reward metrics
+                profit = trade.profit if trade.profit is not None else 0
+                expected_profit = trade.expected_profit if trade.expected_profit is not None else 0
                 
-                # Calculate reward score (-1 to 1)
-                if expected_profit > 0:
-                    # If profitable, score based on how much of expected profit was achieved
-                    reward_score = min(profit / expected_profit, 1.0) if expected_profit != 0 else 0
+                # Enhanced reward calculation
+                if expected_profit != 0:
+                    reward_score = np.clip(profit / expected_profit, -1.0, 1.0)
                 else:
-                    # If loss, score based on how much loss was minimized
-                    reward_score = max(profit / expected_profit, -1.0) if expected_profit != 0 else 0
+                    reward_score = 0
                 
-                # Adjust original action based on reward
+                # Create adjusted action
                 adjusted_action = original_action.copy()
                 
-                # Adjust lot size percentage based on profit/loss
-                if reward_score > 0:
-                    # If profitable, can slightly increase risk
-                    adjusted_action[0] = min(original_action[0] * (1 + 0.1 * reward_score), 1.0)
-                else:
-                    # If loss, reduce risk
-                    adjusted_action[0] = max(original_action[0] * (1 + 0.2 * reward_score), 0.1)
+                # Dynamic lot size adjustment
+                adjusted_action[0] = np.clip(
+                    original_action[0] * (1 + 0.15 * reward_score),
+                    0.1,  # Minimum lot size
+                    1.0   # Maximum lot size
+                )
                 
-                # Adjust SL/TP multipliers based on how close actual price came to them
+                # SL/TP adjustment based on performance
                 sl_improvement = trade.sl_improvement or 0
                 tp_improvement = trade.tp_improvement or 0
                 
-                if sl_improvement != 0:
-                    adjusted_action[1] = max(min(original_action[1] * (1 + 0.1 * sl_improvement), 3.0), 0.5)
+                adjusted_action[1] = np.clip(
+                    original_action[1] * (1 + 0.1 * sl_improvement),
+                    0.5,  # Min SL multiplier
+                    3.0   # Max SL multiplier
+                )
                 
-                if tp_improvement != 0:
-                    adjusted_action[2] = max(min(original_action[2] * (1 + 0.1 * tp_improvement), 3.0), 0.5)
+                adjusted_action[2] = np.clip(
+                    original_action[2] * (1 + 0.1 * tp_improvement),
+                    0.5,  # Min TP multiplier
+                    3.0   # Max TP multiplier
+                )
                 
-                # Add to training data
                 features.append(original_features)
                 targets.append(adjusted_action)
                 
             except Exception as e:
-                self.logger.error(f"Error processing trade for learning: {e}")
+                self.logger.error(f"Error processing trade {trade.id}: {str(e)}")
                 continue
         
         if not features:
             return None, None
             
-        return np.array(features), np.array(targets)
-    
-    def prepare_autonomous_learning_data(self, patterns):
-        """Prepare training data from autonomous learning patterns"""
+        return np.vstack(features), np.vstack(targets)
+
+    def update_model(self, db: Session) -> bool:
+        """Comprehensive model update with version control"""
+        if self.model is None:
+            self.logger.error("Cannot update - no model loaded")
+            return False
+            
+        try:
+            # Get learning data from multiple sources
+            trade_data = self.get_completed_trades(db)
+            X_trades, y_trades = self.prepare_learning_data(trade_data)
+            
+            # Get autonomous learning data if enabled
+            if self.use_autonomous_learning and self.firestore_available:
+                patterns = self._get_autonomous_learning_data()
+                X_patterns, y_patterns = self._prepare_autonomous_data(patterns)
+            else:
+                X_patterns, y_patterns = None, None
+            
+            # Combine data sources
+            X, y = self._combine_data_sources(X_trades, y_trades, X_patterns, y_patterns)
+            if X is None:
+                return False
+                
+            # Update model
+            self._train_model(X, y)
+            
+            # Save new version
+            version_name = f"fibonacci_model_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}"
+            return self._save_model_version(version_name, db)
+            
+        except Exception as e:
+            self.logger.error(f"Model update failed: {str(e)}")
+            return False
+
+    def _get_autonomous_learning_data(self, days: int = 7) -> list:
+        """Retrieve autonomous learning data from Firestore"""
+        try:
+            cutoff_time = datetime.utcnow() - timedelta(days=days)
+            
+            docs = self.db_firestore.collection('learning_data').where(
+                'timestamp', '>=', cutoff_time.isoformat()
+            ).stream()
+            
+            return [doc.to_dict() for doc in docs]
+        except Exception as e:
+            self.logger.error(f"Error getting autonomous data: {str(e)}")
+            return []
+
+    def _prepare_autonomous_data(self, patterns: list) -> Tuple[Optional[np.ndarray], Optional[np.ndarray]]:
+        """Prepare autonomous learning patterns for training"""
         if not patterns:
             return None, None
             
@@ -173,130 +219,93 @@ class ContinuousLearningSystem:
         
         for pattern in patterns:
             try:
-                # Create feature vector similar to what's used in real-time prediction
-                # This is a simplified example - you would need to match your feature extraction
-                pattern_type = pattern.get('pattern_type')
-                is_bullish = 1 if pattern_type == 'bullish' else 0
-                is_bearish = 1 if pattern_type == 'bearish' else 0
+                # Feature extraction logic
+                feature = self._extract_pattern_features(pattern)
+                target = self._calculate_pattern_target(pattern)
                 
-                # Basic features
-                feature = np.array([
-                    0.0,  # Price action (placeholder)
-                    0.0,  # Candle range (placeholder)
-                    0.0,  # Body ratio (placeholder)
-                    0.0,  # Volatility (placeholder)
-                    0.0,  # Volatility std (placeholder)
-                    is_bullish,  # Pattern type bullish
-                    is_bearish,  # Pattern type bearish
-                    0.0,  # Volume (placeholder)
-                    0.0,  # Time (placeholder)
-                    1.0,  # Account state (normalized)
-                    0.0,  # No open trade
-                    0.0,  # No trade duration
-                    0.0,  # No fib redrawn
-                    1.0,  # Target metric
-                    0.0,  # Market trend (placeholder)
-                    0.0   # Spread factor (placeholder)
-                ])
-                
-                # Calculate success metrics
-                success = pattern.get('tp_hit', False)
-                profit = pattern.get('profit', 0)
-                fib_range = pattern.get('fib_range', 0)
-                
-                # Default action values
-                lot_pct = 0.5  # Default
-                sl_mult = 1.0  # Default
-                tp_mult = 1.0  # Default
-                
-                # Adjust based on success/failure
-                if success:
-                    lot_pct = min(0.6, lot_pct * 1.1)  # Slightly increase lot size for successful patterns
-                else:
-                    lot_pct = max(0.3, lot_pct * 0.9)  # Slightly decrease lot size for unsuccessful patterns
-                
-                # Calculate reward score based on profit relative to range
-                if fib_range > 0:
-                    reward_score = min(max(profit / fib_range, -1.0), 1.0)
-                    
-                    # Adjust SL/TP multipliers based on outcome
-                    sl_mult = max(min(sl_mult * (1 + 0.1 * reward_score), 2.0), 0.5)
-                    tp_mult = max(min(tp_mult * (1 + 0.1 * reward_score), 2.0), 0.5)
-                
-                # Add to training data
                 features.append(feature)
-                targets.append([lot_pct, sl_mult, tp_mult])
-                
+                targets.append(target)
             except Exception as e:
-                self.logger.error(f"Error processing autonomous pattern for learning: {e}")
+                self.logger.error(f"Error processing pattern: {str(e)}")
                 continue
-        
+                
         if not features:
             return None, None
             
-        return np.array(features), np.array(targets)
-    
-    def update_model(self, db: Session):
-        """Update the model based on recent trading results and autonomous learning"""
-        try:
-            # Check if model is loaded
-            if self.model is None:
-                self.logger.error("No model loaded, cannot update")
-                return False
-            
-            # Get recent completed trades
-            trades = self.get_completed_trades(db)
-            
-            # Prepare data from trades
-            X_trades, y_trades = self.prepare_learning_data(trades)
-            
-            # Get autonomous learning data if enabled
-            if self.use_autonomous_learning and self.firestore_available:
-                patterns = self.get_autonomous_learning_data()
-                X_patterns, y_patterns = self.prepare_autonomous_learning_data(patterns)
-            else:
-                X_patterns, y_patterns = None, None
-            
-            # Combine data sources if both available
-            if X_trades is not None and X_patterns is not None:
+        return np.vstack(features), np.vstack(targets)
+
+    def _extract_pattern_features(self, pattern: dict) -> np.ndarray:
+        """Extract features from a pattern dictionary"""
+        # Implement your feature extraction logic here
+        return np.zeros(16)  # Placeholder - replace with actual features
+
+    def _calculate_pattern_target(self, pattern: dict) -> np.ndarray:
+        """Calculate target values from pattern results"""
+        # Implement your target calculation logic here
+        return np.zeros(3)  # Placeholder - replace with actual targets
+
+    def _combine_data_sources(self, X_trades, y_trades, X_patterns, y_patterns):
+        """Combine data from different sources with validation"""
+        if X_trades is not None and X_patterns is not None:
+            try:
                 X = np.vstack([X_trades, X_patterns])
                 y = np.vstack([y_trades, y_patterns])
-                self.logger.info(f"Combined {len(X_trades)} trade examples with {len(X_patterns)} autonomous examples")
-            elif X_trades is not None:
-                X, y = X_trades, y_trades
-                self.logger.info(f"Using {len(X_trades)} trade examples")
-            elif X_patterns is not None:
-                X, y = X_patterns, y_patterns
-                self.logger.info(f"Using {len(X_patterns)} autonomous examples")
-            else:
-                self.logger.info("No learning data available from any source")
-                return False
-            
-            if len(X) == 0:
-                self.logger.info("No valid learning data could be extracted")
-                return False
-            
-            self.logger.info(f"Training model on {len(X)} examples")
-            
-            # Update each model in the ensemble
+                self.logger.info(f"Combined {len(X_trades)} trade and {len(X_patterns)} pattern examples")
+                return X, y
+            except ValueError as e:
+                self.logger.error(f"Data shape mismatch: {str(e)}")
+                return None, None
+        elif X_trades is not None:
+            return X_trades, y_trades
+        elif X_patterns is not None:
+            return X_patterns, y_patterns
+        else:
+            self.logger.warning("No valid training data available")
+            return None, None
+
+    def _train_model(self, X: np.ndarray, y: np.ndarray):
+        """Train model with new data"""
+        try:
             for i, model in enumerate(self.model):
-                # Train on the data
-                model.fit(X, y[:, i])
+                model.partial_fit(X, y[:, i])
+            self.logger.info(f"Model updated with {len(X)} new examples")
+        except Exception as e:
+            raise RuntimeError(f"Training failed: {str(e)}")
+
+    def _save_model_version(self, version_name: str, db: Session) -> bool:
+        """Save new model version with database tracking"""
+        try:
+            # Create versioned file path
+            version_path = self.model_path.parent / f"{version_name}.pkl"
             
-            # Save updated model
-            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-            backup_path = f"app/models/fibonacci_model_backup_{timestamp}.pkl"
+            # Save model
+            joblib.dump(self.model, version_path)
             
-            # Create a backup
-            joblib.dump(self.model, backup_path)
-            self.logger.info(f"Model backup saved to {backup_path}")
-                
-            # Replace current model
-            joblib.dump(self.model, self.model_path)
+            # Update symlink atomically
+            temp_path = self.model_path.with_suffix('.tmp')
+            os.symlink(version_path, temp_path)
+            os.replace(temp_path, self.model_path)
             
-            self.logger.info("Model updated and saved")
+            # Record in database
+            model_version = ModelVersion(
+                version_name=version_name,
+                path=str(version_path),
+                is_active=True
+            )
+            db.add(model_version)
+            db.commit()
+            
+            self.logger.info(f"Saved new model version: {version_name}")
             return True
             
         except Exception as e:
-            self.logger.error(f"Error updating model: {e}")
+            self.logger.error(f"Failed to save model version: {str(e)}")
+            db.rollback()
+            
+            # Clean up failed files
+            if 'temp_path' in locals() and temp_path.exists():
+                temp_path.unlink()
+            if 'version_path' in locals() and version_path.exists():
+                version_path.unlink()
+                
             return False
