@@ -8493,3 +8493,792 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487
 2025-04-20 02:14:51,717 - ERROR - API error: 503 - Service Unavailable
 2025-04-20 02:14:56,800 - INFO - Received keyboard interrupt
 2025-04-20 02:14:56,801 - INFO - Trading client stopped
+2025-04-20 02:15:18,391 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=167349, community_balance=0.0, retransmission=0.029843693654484634, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-20 02:15:18,392 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-20 02:15:18,393 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-20 02:15:18,394 - INFO - Trading client started
+2025-04-20 02:15:19,515 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:15:24,568 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:15:29,713 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:15:34,004 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:15:39,344 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:15:44,713 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:04,749 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:16:06,829 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:11,867 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:16,988 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:22,081 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:27,182 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:32,300 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:37,436 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:42,506 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:47,596 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:51,880 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:16:57,174 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:13,140 - ERROR - API error: 500 - 
+2025-04-20 02:17:14,416 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:19,766 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:25,066 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:30,402 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:35,674 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:40,965 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:46,237 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:17:52,299 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:11,343 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:18:13,406 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:18,384 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:24,446 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:29,612 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:35,003 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:40,118 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:45,379 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:50,518 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:18:55,707 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:00,225 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:05,516 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:10,802 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:16,435 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:36,475 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:19:38,575 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:43,628 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:48,809 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:53,927 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:19:58,998 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:04,032 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:09,095 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:14,177 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:19,198 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:23,472 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:43,523 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:20:45,622 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:50,726 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:20:55,925 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:00,962 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:06,014 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:11,156 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:16,343 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:21,604 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:26,776 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:31,376 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:51,410 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:21:53,890 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:21:59,088 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:04,232 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:09,423 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:14,570 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:19,797 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:24,935 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:29,983 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:35,073 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:39,366 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:44,647 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:49,919 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:22:55,202 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:00,476 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:20,521 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:23:22,596 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:27,712 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:32,877 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:37,935 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:43,167 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:48,311 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:53,416 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:23:58,430 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:03,675 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:08,219 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:13,486 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:18,779 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:24,854 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:43,893 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:24:46,184 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:51,271 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:24:56,419 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:01,572 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:06,683 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:11,801 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:16,879 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:21,964 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:27,063 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:31,383 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:36,694 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:25:56,732 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:25:58,838 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:03,994 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:09,088 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:14,122 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:19,225 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:24,311 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:29,375 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:34,558 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:39,612 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:44,242 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:49,545 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:26:59,674 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:05,971 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:11,975 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:18,356 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:24,769 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:30,876 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:36,966 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:42,789 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:48,041 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:53,748 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:27:59,749 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:04,975 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:10,785 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:16,857 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:22,878 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:28,767 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:34,662 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:40,489 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:46,573 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:52,750 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:28:57,852 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:03,641 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:09,548 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:18,942 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:23,369 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:33,848 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:42,820 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:29:51,244 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:00,231 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:05,446 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:15,835 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:21,551 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:27,656 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:32,777 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:38,447 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:44,453 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:50,656 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:30:56,554 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:02,432 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:08,659 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:16,649 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:25,374 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:33,619 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:41,955 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:46,561 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:31:53,253 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:01,459 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:09,016 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:16,930 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:22,839 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:27,830 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:34,443 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:40,447 - INFO - Received keyboard interrupt
+2025-04-20 02:32:40,447 - INFO - Trading client stopped
+2025-04-20 02:32:44,893 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=167349, community_balance=0.0, retransmission=0.10801658200502132, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-20 02:32:44,893 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-20 02:32:44,893 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-20 02:32:44,893 - INFO - Trading client started
+2025-04-20 02:32:49,560 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:32:55,625 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:01,544 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:07,835 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:13,555 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:19,633 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:25,849 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:31,357 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:37,254 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:43,356 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:50,521 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:33:57,138 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:06,934 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:12,341 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:17,833 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:28,549 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:38,114 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:48,137 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:53,725 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:34:59,433 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:05,728 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:11,522 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:17,537 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:23,745 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:29,622 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:35,646 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:41,644 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:47,555 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:53,723 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:35:59,845 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:05,924 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:11,724 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:17,449 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:23,541 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:29,756 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:35,627 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:41,627 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:47,244 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:53,732 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:36:59,851 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:37:05,326 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:37:11,742 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:37:17,951 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:37:17,978 - INFO - Received keyboard interrupt
+2025-04-20 02:37:17,978 - INFO - Trading client stopped
+2025-04-20 02:37:21,982 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=167349, community_balance=0.0, retransmission=0.10801658200502132, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-20 02:37:21,982 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-20 02:37:21,984 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-20 02:37:21,986 - INFO - Trading client started
+2025-04-20 02:38:40,236 - INFO - Received keyboard interrupt
+2025-04-20 02:38:41,996 - INFO - Trading client stopped

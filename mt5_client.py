@@ -8,6 +8,8 @@ import configparser
 import json
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Union
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # Configure logging
 logging.basicConfig(
@@ -51,10 +53,30 @@ class FibonacciTradingClient:
         self.candles_lookback = self.config.getint('Trading', 'candles_lookback', fallback=50)
         self.check_interval = self.config.getint('Trading', 'check_interval', fallback=5)
         
+        # Retry settings
+        self.max_retries = self.config.getint('Retry', 'max_retries', fallback=5)
+        self.retry_delay = self.config.getint('Retry', 'base_delay', fallback=5)
+        
+        # Initialize requests session with retry
+        self.session = self._create_session()
+        
         # State variables
         self.running = False
         self.active_positions: Dict[int, Dict] = {}
         self.last_analysis_time = None
+    
+    def _create_session(self):
+        """Create requests session with retry logic"""
+        session = requests.Session()
+        retry_strategy = Retry(
+            total=self.max_retries,
+            backoff_factor=self.retry_delay,
+            status_forcelist=[500, 502, 503, 504],
+            allowed_methods=["GET", "POST"]
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        session.mount("https://", adapter)
+        return session
     
     def get_timeframe(self, timeframe_str: str) -> int:
         """Convert timeframe string to MT5 timeframe constant"""
@@ -100,7 +122,7 @@ class FibonacciTradingClient:
         return timeframes.get(timeframe, "Unknown")
     
     def get_market_data(self) -> Optional[Dict]:
-        """Get current market data from MT5"""
+        """Get current market data from MT5 with error handling"""
         try:
             # Get current tick data
             tick = mt5.symbol_info_tick(self.symbol)
@@ -186,7 +208,7 @@ class FibonacciTradingClient:
             return None
     
     def analyze_market(self) -> Optional[Dict]:
-        """Get market data and send to AI for analysis"""
+        """Get market data and send to AI for analysis with retry logic"""
         market_data = self.get_market_data()
         if market_data is None:
             return None
@@ -199,23 +221,38 @@ class FibonacciTradingClient:
             "active_positions": market_data["active_positions"]
         }
         
-        try:
-            response = requests.post(
-                f"{self.api_endpoint}/analyze",
-                json=json.dumps(request_data, cls=MT5JSONEncoder),
-                headers={'Content-Type': 'application/json'},
-                timeout=15
-            )
-            
-            if response.status_code == 200:
-                return response.json()
-            else:
-                logger.error(f"API error: {response.status_code} - {response.text}")
-                return None
+        for attempt in range(self.max_retries + 1):
+            try:
+                response = self.session.post(
+                    f"{self.api_endpoint}/analyze",
+                    json=json.dumps(request_data, cls=MT5JSONEncoder),
+                    headers={'Content-Type': 'application/json'},
+                    timeout=15
+                )
                 
-        except Exception as e:
-            logger.error(f"Error sending data to API: {str(e)}", exc_info=True)
-            return None
+                if response.status_code == 200:
+                    return response.json()
+                elif response.status_code == 503:
+                    logger.warning(f"API temporarily unavailable (attempt {attempt + 1}/{self.max_retries})")
+                    if attempt < self.max_retries:
+                        time.sleep(self.retry_delay * (attempt + 1))
+                        continue
+                else:
+                    logger.error(f"API error: {response.status_code} - {response.text}")
+                    return None
+                    
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Network error during API request (attempt {attempt + 1}/{self.max_retries}): {str(e)}")
+                if attempt < self.max_retries:
+                    time.sleep(self.retry_delay * (attempt + 1))
+                    continue
+                return None
+            except Exception as e:
+                logger.error(f"Unexpected error during API request: {str(e)}", exc_info=True)
+                return None
+        
+        logger.error(f"Failed to get analysis after {self.max_retries} attempts")
+        return None
     
     def execute_trade_signal(self, signal: Dict) -> bool:
         """Execute the trade signal from AI in MT5"""
@@ -353,7 +390,7 @@ class FibonacciTradingClient:
                             # Report trade result
                             if position_data.get("trade_id"):
                                 try:
-                                    requests.post(
+                                    self.session.post(
                                         f"{self.api_endpoint}/trade-result",
                                         json={
                                             "trade_id": position_data["trade_id"],
@@ -404,10 +441,11 @@ class FibonacciTradingClient:
             logger.info("Received keyboard interrupt")
         
         except Exception as e:
-            logger.error(f"Error in main loop: {str(e)}")
+            logger.error(f"Error in main loop: {str(e)}", exc_info=True)
         
         finally:
             self.running = False
+            monitor_thread.join(timeout=5)
             logger.info("Trading client stopped")
 
 if __name__ == "__main__":
