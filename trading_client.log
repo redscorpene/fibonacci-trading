@@ -9282,3 +9282,7 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487
 2025-04-20 02:37:21,986 - INFO - Trading client started
 2025-04-20 02:38:40,236 - INFO - Received keyboard interrupt
 2025-04-20 02:38:41,996 - INFO - Trading client stopped
+2025-04-20 02:38:47,086 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=167349, community_balance=0.0, retransmission=0.0, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-20 02:38:47,088 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-20 02:38:47,088 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-20 02:38:47,091 - INFO - Trading client started

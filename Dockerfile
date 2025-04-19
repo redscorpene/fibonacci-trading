@@ -1,47 +1,67 @@
-FROM python:3.10-slim
+# Use the official Python slim image
+FROM python:3.10-slim as builder
 
-# Copy the credentials JSON file to the container
-COPY gcp_credentials.json /fibonacci_trading_ai/gcp_credentials.json
-
-# Set the environment variable for Google Cloud authentication
-ENV GOOGLE_APPLICATION_CREDENTIALS="/fibonacci_trading_ai/gcp_credentials.json"
-
-# Install system dependencies
+# Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgomp1 \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory to root
-WORKDIR /
+# Create and set working directory
+WORKDIR /app
 
-# Copy requirements first for better caching
+# Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --user --no-cache-dir -r requirements.txt
 
+# --- Production stage ---
+FROM python:3.10-slim
 
-# Copy application code to the root directory
-COPY . .
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    PORT=8080 \
+    GOOGLE_APPLICATION_CREDENTIALS=/app/gcp_credentials.json
 
-# Copy Google Cloud credentials file
-COPY gcp_credentials.json /fibonacci_trading_ai/gcp_credentials.json
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m appuser && \
+    mkdir -p /app && \
+    chown appuser:appuser /app
+
+# Copy from builder stage
+COPY --from=builder /root/.local /home/appuser/.local
+COPY --chown=appuser:appuser . /app
+
+# Switch to non-root user
+USER appuser
 
 # Verify critical files exist
-RUN test -f "fibonacci_model.pkl" || (echo "ERROR: Missing fibonacci_model.pkl" && exit 1) && \
-    test -f "state_scaler.pkl" || (echo "ERROR: Missing state_scaler.pkl" && exit 1) && \
-    test -f "main.py" || (echo "ERROR: Missing main.py" && exit 1)
+RUN test -f "/app/fibonacci_model.pkl" && \
+    test -f "/app/state_scaler.pkl" && \
+    test -f "/app/main.py"
 
-# Expose port
-EXPOSE 8080
+# Ensure Python packages are in PATH
+ENV PATH=/home/appuser/.local/bin:$PATH
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/health || exit 1
 
-# Start Gunicorn with Uvicorn workers
+# Expose port
+EXPOSE $PORT
+
+# Start Gunicorn
 CMD ["gunicorn", "main:app", \
     "--workers", "4", \
     "--worker-class", "uvicorn.workers.UvicornWorker", \
     "--bind", "0.0.0.0:8080", \
     "--timeout", "120", \
-    "--keep-alive", "60"]
+    "--keep-alive", "60", \
+    "--access-logfile", "-", \
+    "--error-logfile", "-", \
+    "--log-level", "info"]
