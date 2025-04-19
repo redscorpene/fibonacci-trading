@@ -8137,3 +8137,359 @@
 2025-04-07 01:02:21,685 - ERROR - API error: 500 - {"detail":""}
 2025-04-07 01:02:25,850 - INFO - Received keyboard interrupt
 2025-04-07 01:02:25,852 - INFO - Trading client stopped
+2025-04-20 01:57:43,415 - INFO - MT5 connected. Terminal info: TerminalInfo(community_account=False, community_connection=False, connected=True, dlls_allowed=False, trade_allowed=False, tradeapi_disabled=False, email_enabled=False, ftp_enabled=False, notifications_enabled=False, mqid=True, build=4790, maxbars=100000, codepage=0, ping_last=171577, community_balance=0.0, retransmission=0.0, company='Just Global Markets Ltd.', name='JustMarkets MetaTrader 5', language='English', path='C:\\Program Files\\JustMarkets MetaTrader 5', data_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\E7DB6AF1FE93F292652A5D3B98342601', commondata_path='C:\\Users\\ahmad\\AppData\\Roaming\\MetaQuotes\\Terminal\\Common')
+2025-04-20 01:57:43,415 - INFO - Logged in as: AHMAD SABRI HARUN, Balance: $46.28
+2025-04-20 01:57:43,415 - INFO - Trading BTCUSD.m on 5-minute
+2025-04-20 01:57:43,419 - INFO - Trading client started
+2025-04-20 01:57:43,748 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:57:49,037 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:57:54,326 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:57:59,601 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:04,885 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:10,237 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:15,522 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:20,811 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:26,100 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:31,371 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:36,642 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:41,950 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:47,225 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:52,514 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:58:57,784 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:03,054 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:08,340 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:13,630 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:18,909 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:24,196 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:29,481 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:34,747 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:40,017 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:45,294 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:50,585 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 01:59:55,853 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:01,127 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:06,413 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:11,692 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:16,960 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:22,249 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:27,528 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:32,803 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:38,087 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:43,376 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:48,715 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:54,029 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:00:59,305 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:04,595 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:09,884 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:15,185 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:20,483 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:25,751 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:31,027 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:36,314 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:41,613 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:46,886 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:52,179 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:01:57,456 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:02,744 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:08,030 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:13,313 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:18,600 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:23,888 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:29,174 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:34,455 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:39,749 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:45,030 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:50,323 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:02:55,631 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:00,905 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:06,201 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:11,483 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:17,415 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:22,704 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:28,001 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:33,281 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:38,597 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:43,897 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:49,184 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:54,483 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:03:59,775 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:05,054 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:10,329 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:15,632 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:20,909 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:26,193 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:31,485 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:36,804 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:42,150 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:47,448 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:52,728 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:04:58,039 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:03,334 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:08,618 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:13,907 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:19,199 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:24,516 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:29,812 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:35,096 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:40,368 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:45,667 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:51,003 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:05:56,292 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:01,611 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:06,885 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:12,173 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:17,487 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:22,784 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:28,121 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:33,425 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:38,709 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:44,086 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:49,362 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:54,622 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:06:59,937 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:05,211 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:10,508 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:15,802 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:21,094 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:26,369 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:31,656 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:36,926 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:42,201 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:47,475 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:52,753 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:07:58,045 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:03,336 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:08,610 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:13,902 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:19,178 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:24,465 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:29,735 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:35,011 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:40,284 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:45,567 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:50,840 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:08:56,118 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:01,400 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:06,673 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:11,948 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:17,243 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:22,535 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:27,820 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:33,183 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:38,483 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:43,768 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:49,044 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:54,346 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:09:59,646 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:04,942 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:10,238 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:15,519 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:20,804 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:26,092 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:31,375 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:36,651 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:41,940 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:47,225 - ERROR - API error: 500 - {"detail":""}
+2025-04-20 02:10:52,525 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:10:57,824 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:03,095 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:08,400 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:13,688 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:18,989 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:24,278 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:29,602 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:34,889 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:11:54,935 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:11:57,352 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:02,579 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:07,775 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:13,028 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:18,208 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:23,353 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:28,702 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:33,718 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:12:48,699 - ERROR - API error: 500 - 
+2025-04-20 02:12:49,979 - ERROR - API error: 500 - 
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>500 Server Error</title>
+</head>
+<body text=#000000 bgcolor=#ffffff>
+<h1>Error: Server Error</h1>
+<h2>The server encountered an error and could not complete your request.<p>Please try again in 30 seconds.</h2>
+<h2></h2>
+</body></html>
+
+2025-04-20 02:12:55,273 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:00,577 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:06,828 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:11,883 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:17,012 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:22,380 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:27,490 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:32,546 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:37,750 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:42,987 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:48,028 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:53,262 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:13:58,504 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:02,764 - ERROR - API error: 500 - 
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>500 Server Error</title>
+</head>
+<body text=#000000 bgcolor=#ffffff>
+<h1>Error: Server Error</h1>
+<h2>The server encountered an error and could not complete your request.<p>Please try again in 30 seconds.</h2>
+<h2></h2>
+</body></html>
+
+2025-04-20 02:14:08,046 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:13,318 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:18,650 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:24,266 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:44,313 - ERROR - Error sending data to API: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1314, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\ssl.py", line 1166, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\fibonacci-trading\mt5_client.py", line 203, in analyze_market
+    response = requests.post(
+               ^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ahmad\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 713, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='fibonacci-trading-487611615001.us-central1.run.app', port=443): Read timed out. (read timeout=15)
+2025-04-20 02:14:46,524 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:51,717 - ERROR - API error: 503 - Service Unavailable
+2025-04-20 02:14:56,800 - INFO - Received keyboard interrupt
+2025-04-20 02:14:56,801 - INFO - Trading client stopped

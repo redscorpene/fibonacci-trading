@@ -1,30 +1,38 @@
+#!/usr/bin/env python3
+"""
+Fibonacci Trading System - Main Entry Point
+"""
+
 import os
-import uuid
-import json
 import time
 import logging
 import logging.config
-import psutil
-from datetime import datetime, timedelta
-from typing import List, Dict, Optional
 from pathlib import Path
+from typing import Dict, List, Optional
 
-import numpy as np
-import pandas as pd
+import requests
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import joblib
+import numpy as np
+import pandas as pd
 from google.cloud import firestore
 from google.cloud import secretmanager
 import google.auth
+import psutil
+from prometheus_client import start_http_server, Counter, Gauge, Histogram
+
+# ========================
+# APPLICATION SETUP
+# ========================
 
 # Initialize FastAPI with enhanced configuration
 app = FastAPI(
-    title="Fibonacci Trading AI",
-    description="Intelligent trading API for BTC/USD using Fibonacci retracement patterns",
-    version="2.0.0",
+    title="Fibonacci Trading API",
+    description="AI-powered trading system using Fibonacci retracement patterns",
+    version="2.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
     debug=os.getenv("DEBUG", "false").lower() == "true"
@@ -39,7 +47,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure structured logging
+# ========================
+# LOGGING CONFIGURATION
+# ========================
+
 logging.config.dictConfig({
     'version': 1,
     'formatters': {
@@ -58,47 +69,77 @@ logging.config.dictConfig({
         }
     },
     'handlers': {
-        'cloud_logging': {
-            'class': 'google.cloud.logging.handlers.CloudLoggingHandler',
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'json'
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/var/log/fibonacci-trading.log',
+            'maxBytes': 10 * 1024 * 1024,  # 10MB
+            'backupCount': 5,
             'formatter': 'json'
         },
     },
     'loggers': {
         '': {
-            'handlers': ['cloud_logging'],
+            'handlers': ['console', 'file'],
+            'level': os.getenv("LOG_LEVEL", "INFO")
+        },
+        'uvicorn.error': {
             'level': 'INFO'
+        },
+        'uvicorn.access': {
+            'level': 'WARNING'
         }
     }
 })
 
 logger = logging.getLogger(__name__)
 
-# Initialize services with error handling
-try:
-    db = firestore.Client()
-    logger.info("Firestore client initialized")
-except Exception as e:
-    logger.error(f"Firestore initialization failed: {str(e)}")
-    db = None
+# ========================
+# METRICS CONFIGURATION
+# ========================
 
-try:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    logger.info("Secret Manager client initialized")
-except Exception as e:
-    logger.error(f"Secret Manager initialization failed: {str(e)}")
-    secret_client = None
+# Prometheus metrics
+REQUEST_COUNT = Counter(
+    'http_requests_total',
+    'Total HTTP Requests',
+    ['method', 'endpoint', 'status_code']
+)
 
-# Model loading with verification
+REQUEST_LATENCY = Histogram(
+    'http_request_duration_seconds',
+    'HTTP request latency',
+    ['method', 'endpoint']
+)
+
+ERROR_COUNT = Counter(
+    'http_errors_total',
+    'Total HTTP Errors',
+    ['method', 'endpoint', 'error_type']
+)
+
+API_HEALTH = Gauge(
+    'api_health_status',
+    'API health status (1=healthy, 0=unhealthy)'
+)
+
+# ========================
+# MODEL & CONFIG LOADING
+# ========================
+
 MODEL_DIR = Path(os.getenv("MODEL_DIR", "/app/models"))
 model = None
 scaler = None
 
 @app.on_event("startup")
 async def startup_event():
-    """Initialize services and verify model loading"""
+    """Initialize services on startup"""
     global model, scaler
     
     try:
+        # Load models with verification
         model_path = MODEL_DIR / "fibonacci_model_current.pkl"
         scaler_path = MODEL_DIR / "state_scaler.pkl"
         
@@ -113,26 +154,24 @@ async def startup_event():
         try:
             model.predict([test_input])
             logger.info("Model loaded and verified successfully")
+            API_HEALTH.set(1)
         except Exception as e:
             logger.error(f"Model verification failed: {str(e)}")
             model = None
+            API_HEALTH.set(0)
             raise
+            
     except Exception as e:
         logger.critical(f"Startup failed: {str(e)}")
         model = None
         scaler = None
+        API_HEALTH.set(0)
         raise RuntimeError("Service initialization failed")
 
-# Trading configuration
-TRADING_SETTINGS = {
-    "points_to_usd_factor": float(os.getenv("POINTS_TO_USD_FACTOR", "0.01")),
-    "spread": int(os.getenv("DEFAULT_SPREAD", "3000")),
-    "min_lot_size": float(os.getenv("MIN_LOT_SIZE", "0.01")),
-    "max_lot_size": float(os.getenv("MAX_LOT_SIZE", "0.1")),
-    "max_request_size": int(os.getenv("MAX_REQUEST_SIZE", "10240"))  # 10KB
-}
+# ========================
+# DATA MODELS
+# ========================
 
-# Data models
 class MarketData(BaseModel):
     time: str
     open: float
@@ -140,12 +179,6 @@ class MarketData(BaseModel):
     low: float
     close: float
     volume: Optional[float] = None
-
-class AccountInfo(BaseModel):
-    balance: float
-    equity: float
-    margin: Optional[float] = None
-    free_margin: Optional[float] = None
 
 class TradingSignal(BaseModel):
     action: str  # "BUY", "SELL", "CLOSE", "HOLD"
@@ -158,55 +191,12 @@ class TradingSignal(BaseModel):
     message: str = ""
     trade_id: Optional[str] = None
 
-# Middleware
-@app.middleware("http")
-async def request_validation_middleware(request: Request, call_next):
-    """Validate incoming requests"""
-    trace_id = request.headers.get("X-Cloud-Trace-Context", "").split("/")[0]
-    span_id = request.headers.get("X-Cloud-Trace-Context", "").split("/")[1] if "/" in request.headers.get("X-Cloud-Trace-Context", "") else ""
-    
-    extra = {
-        "trace_id": trace_id,
-        "span_id": span_id,
-        "request_path": request.url.path
-    }
-    
-    try:
-        # Skip validation for docs and health checks
-        if request.url.path in ["/docs", "/redoc", "/health"]:
-            return await call_next(request)
-            
-        # Check content type
-        if request.method == "POST" and request.headers.get("content-type") != "application/json":
-            logger.warning("Invalid content type", extra=extra)
-            return JSONResponse(
-                status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-                content={"detail": "Unsupported Media Type"}
-            )
-            
-        # Check body size
-        body = await request.body()
-        if len(body) > TRADING_SETTINGS["max_request_size"]:
-            logger.warning("Request too large", extra=extra)
-            return JSONResponse(
-                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-                content={"detail": "Payload too large"}
-            )
-            
-        request.state.raw_body = body
-        response = await call_next(request)
-        return response
-        
-    except Exception as e:
-        logger.error(f"Request validation failed: {str(e)}", extra=extra)
-        return JSONResponse(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            content={"detail": "Invalid request"}
-        )
+# ========================
+# HELPER FUNCTIONS
+# ========================
 
-# Helper functions
 def prepare_data(candles: List[Dict]) -> pd.DataFrame:
-    """Convert and validate candle data"""
+    """Convert and validate candle data with enhanced error handling"""
     try:
         df = pd.DataFrame(candles)
         
@@ -238,55 +228,17 @@ def prepare_data(candles: List[Dict]) -> pd.DataFrame:
         
     except Exception as e:
         logger.error(f"Data preparation failed: {str(e)}")
-        raise
+        raise ValueError(f"Data processing error: {str(e)}")
 
-def create_model_input(df: pd.DataFrame, account: Dict, current_tick: Dict, positions: List[Dict]) -> np.ndarray:
-    """Create validated model input features"""
-    try:
-        if df.empty:
-            raise ValueError("Empty DataFrame provided")
-            
-        latest_candle = df.iloc[-1]
-        prev_candles = df.iloc[max(0, len(df)-10):-1]
-        
-        features = [
-            latest_candle["close"] / latest_candle["open"] - 1,
-            latest_candle["high"] / latest_candle["low"] - 1,
-            latest_candle["candle_body"] / latest_candle["candle_range"] if latest_candle["candle_range"] != 0 else 0,
-            prev_candles["candle_range"].mean() if len(prev_candles) > 0 else latest_candle["candle_range"],
-            prev_candles["candle_range"].std() if len(prev_candles) > 1 else 0,
-            1 if any(latest_candle[f"breaks_candle_{n}_high"] == 1 for n in range(3, 6)) else 0,
-            1 if any(latest_candle[f"breaks_candle_{n}_low"] == 1 for n in range(3, 6)) else 0,
-            latest_candle["volume"] / prev_candles["volume"].mean() if "volume" in latest_candle and len(prev_candles) > 0 and prev_candles["volume"].mean() > 0 else 1.0,
-            pd.to_datetime(latest_candle["time"]).hour / 24.0,
-            account.get("balance", 1000) / 10000,
-            1 if positions else 0,
-            (datetime.now() - pd.to_datetime(positions[0].get("timestamp"))).total_seconds() / 86400 if positions else 0,
-            1 if positions and positions[0].get("fib_redrawn", False) else 0,
-            1.0,
-            (latest_candle["close"] - prev_candles.iloc[0]["close"]) / prev_candles.iloc[0]["close"] if len(prev_candles) >= 10 else 0,
-            min(current_tick.get("spread", 0) / (prev_candles["candle_range"].mean() if len(prev_candles) > 0 else latest_candle["candle_range"]), 1) if (prev_candles["candle_range"].mean() if len(prev_candles) > 0 else latest_candle["candle_range"]) > 0 else 0
-        ]
-        
-        return np.array(features)
-        
-    except Exception as e:
-        logger.error(f"Feature creation failed: {str(e)}")
-        raise
-
-def calculate_fibonacci_levels(df: pd.DataFrame, broken_candle_idx: int = None) -> Dict[str, float]:
-    """Calculate Fibonacci levels with validation"""
+def calculate_fibonacci_levels(df: pd.DataFrame) -> Dict[str, float]:
+    """Calculate Fibonacci levels with validation and error handling"""
     try:
         if df.empty:
             raise ValueError("Empty DataFrame for Fibonacci calculation")
             
-        if broken_candle_idx is None:
-            high_idx = df.iloc[-20:]["high"].idxmax() if len(df) >= 20 else df["high"].idxmax()
-            low_idx = df.iloc[-20:]["low"].idxmin() if len(df) >= 20 else df["low"].idxmin()
-        else:
-            high_idx = broken_candle_idx
-            low_idx = broken_candle_idx
-            
+        high_idx = df.iloc[-20:]["high"].idxmax() if len(df) >= 20 else df["high"].idxmax()
+        low_idx = df.iloc[-20:]["low"].idxmin() if len(df) >= 20 else df["low"].idxmin()
+        
         high_price = df.loc[high_idx, "high"]
         low_price = df.loc[low_idx, "low"]
         price_range = high_price - low_price
@@ -305,54 +257,23 @@ def calculate_fibonacci_levels(df: pd.DataFrame, broken_candle_idx: int = None) 
         
     except Exception as e:
         logger.error(f"Fibonacci calculation failed: {str(e)}")
-        raise
+        raise ValueError(f"Fibonacci calculation error: {str(e)}")
 
-async def get_api_key(request: Request) -> str:
-    """Validate API key with enhanced security"""
-    try:
-        body = await request.json()
-        api_key = body.get("api_key")
-        
-        if not api_key:
-            raise ValueError("Missing API key")
-            
-        # Get valid key from Secret Manager
-        try:
-            secret_name = f"projects/{os.environ['GCP_PROJECT_ID']}/secrets/api-key/versions/latest"
-            response = secret_client.access_secret_version(request={"name": secret_name})
-            valid_key = response.payload.data.decode("UTF-8")
-        except Exception as e:
-            logger.error(f"Secret Manager access failed: {str(e)}")
-            valid_key = os.environ.get("API_KEY")
-            
-        if api_key != valid_key:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid API key"
-            )
-            
-        return api_key
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"API key validation error: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authentication error"
-        )
+# ========================
+# API ENDPOINTS
+# ========================
 
-# API endpoints
 @app.get("/")
 async def root():
-    """Health check endpoint"""
+    """Root endpoint with health information"""
     return {
         "service": "Fibonacci Trading API",
         "status": "operational" if model is not None else "degraded",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "endpoints": {
             "/analyze": "POST - Analyze market data",
             "/health": "GET - Detailed health check",
+            "/metrics": "GET - Prometheus metrics",
             "/docs": "API documentation",
             "/redoc": "Alternative documentation"
         }
@@ -360,37 +281,37 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Comprehensive health check"""
+    """Comprehensive health check endpoint"""
     checks = {
         "model_loaded": model is not None,
         "scaler_loaded": scaler is not None,
-        "database_connected": db is not None,
         "memory_usage": psutil.virtual_memory().percent,
         "cpu_usage": psutil.cpu_percent(),
         "disk_usage": psutil.disk_usage("/").percent,
-        "service_status": "healthy" if model is not None and scaler is not None else "degraded"
+        "service_status": "healthy" if model is not None else "degraded"
     }
     
     status_code = status.HTTP_200_OK if checks["service_status"] == "healthy" else status.HTTP_503_SERVICE_UNAVAILABLE
-    return JSONResponse(
-        status_code=status_code,
-        content=checks
-    )
+    return JSONResponse(status_code=status_code, content=checks)
 
 @app.post("/analyze")
 async def analyze_market(request: Request):
-    """Analyze market data with comprehensive error handling"""
+    """Main trading analysis endpoint with full error handling"""
     trace_id = request.headers.get("X-Cloud-Trace-Context", "").split("/")[0]
     extra = {"trace_id": trace_id}
+    start_time = time.time()
     
     try:
         # Authentication
         try:
-            await get_api_key(request)
+            api_key = await get_api_key(request)
+            extra["api_key"] = api_key[-4:]  # Log last 4 chars for audit
         except HTTPException as auth_error:
-            logger.error(f"Authentication failed", extra=extra)
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="authentication").inc()
+            logger.error("Authentication failed", extra=extra)
             raise
         except Exception as auth_error:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="authentication").inc()
             logger.error(f"Unexpected auth error: {str(auth_error)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -418,12 +339,14 @@ async def analyze_market(request: Request):
                 raise ValueError("Invalid tick prices")
                 
         except ValueError as ve:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="validation").inc()
             logger.error(f"Invalid request data: {str(ve)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 detail=str(ve)
             )
         except Exception as e:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="validation").inc()
             logger.error(f"Request parsing error: {str(e)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -432,6 +355,7 @@ async def analyze_market(request: Request):
 
         # Model validation
         if model is None:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="unavailable").inc()
             logger.error("Trading model not loaded", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -451,12 +375,14 @@ async def analyze_market(request: Request):
                 raise ValueError(f"Invalid model input shape: {model_input.shape}")
                 
         except ValueError as ve:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="processing").inc()
             logger.error(f"Data processing error: {str(ve)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 detail=str(ve)
             )
         except Exception as e:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="processing").inc()
             logger.error(f"Data processing failed: {str(e)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -473,6 +399,7 @@ async def analyze_market(request: Request):
                 raise ValueError("Invalid Fibonacci levels calculated")
                 
         except Exception as e:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="prediction").inc()
             logger.error(f"Prediction failed: {str(e)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -488,8 +415,8 @@ async def analyze_market(request: Request):
                 action="BUY" if prediction > 0 else "SELL" if prediction < 0 else "HOLD",
                 lot_size=np.clip(
                     abs(prediction),
-                    TRADING_SETTINGS["min_lot_size"],
-                    TRADING_SETTINGS["max_lot_size"]
+                    float(os.getenv("MIN_LOT_SIZE", "0.01")),
+                    float(os.getenv("MAX_LOT_SIZE", "0.1"))
                 ),
                 entry_price=bid_price if prediction > 0 else ask_price,
                 stop_loss=float(fib_levels["0.0%"]),
@@ -499,10 +426,21 @@ async def analyze_market(request: Request):
                 trade_id=str(uuid.uuid4())
             )
             
-            logger.info("Analysis completed successfully", extra=extra)
+            latency = time.time() - start_time
+            REQUEST_LATENCY.labels(method="POST", endpoint="/analyze").observe(latency)
+            REQUEST_COUNT.labels(method="POST", endpoint="/analyze", status_code="200").inc()
+            
+            logger.info("Analysis completed successfully", extra={
+                **extra,
+                "processing_time": latency,
+                "prediction": float(prediction),
+                "action": signal.action
+            })
+            
             return signal
             
         except Exception as e:
+            ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="response").inc()
             logger.error(f"Response generation failed: {str(e)}", extra=extra)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -512,8 +450,39 @@ async def analyze_market(request: Request):
     except HTTPException:
         raise
     except Exception as e:
+        ERROR_COUNT.labels(method="POST", endpoint="/analyze", error_type="unexpected").inc()
         logger.error(f"Unexpected error in analysis: {str(e)}", extra=extra)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error"
         )
+
+# ========================
+# METRICS ENDPOINT
+# ========================
+
+@app.get("/metrics")
+async def metrics():
+    """Prometheus metrics endpoint"""
+    from prometheus_client import generate_latest
+    from fastapi.responses import Response
+    return Response(content=generate_latest(), media_type="text/plain")
+
+# ========================
+# MAIN ENTRY POINT
+# ========================
+
+if __name__ == "__main__":
+    import uvicorn
+    
+    # Start Prometheus metrics server
+    start_http_server(8000)
+    
+    # Start FastAPI server
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "8080")),
+        log_config=None,  # Use our custom logging config
+        timeout_keep_alive=60
+    )
